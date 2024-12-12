@@ -1,0 +1,66 @@
+<div class="topic">
+    <div class="banner">
+        <img *ngIf="topic" class="banner-image" src={{topic.banner}} alt="">
+    </div>
+    <div class="topic-title">
+        <h2 *ngIf="topic.topicName">{{topic.topicName}}</h2>
+        <div routerLink="/create-post" class="create-button">
+            <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1.7em" width="1.7em"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4">
+                </path>
+            </svg>
+            <p>Create a post</p>
+        </div>
+    </div>
+    <ul>
+        <li routerLink="/posts/{{post.id}}" *ngFor="let post of posts">
+            <div class="post-box">
+                <div class="topic-box">
+                    <p>{{post.owner}}</p>
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
+                        width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd">
+                        </path>
+                    </svg>
+                    <span>{{timeFormat(post.createdAt)}}</span>
+                </div>
+                <h2>{{post.title}}</h2>
+                <p *ngIf="post.description" class="post-text">{{post.description}}</p>
+                <div *ngIf="post.imageUrl" class="images">
+                    <img class="blurred-image" src={{post.imageUrl}} alt="">
+                    <img class="main-image" src={{post.imageUrl}} alt="">
+                </div>
+                <div class="interact">
+                    <div class="interact-box">
+                        <svg class="upvote" stroke="currentColor" fill="currentColor" stroke-width="0"
+                            viewBox="0 0 10 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M5 3L0 9h3v4h4V9h3L5 3z"></path>
+                        </svg>
+                        <span>{{post.votes}}</span>
+                        <svg class="downvote" stroke="currentColor" fill="currentColor" stroke-width="0"
+                            viewBox="0 0 10 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M7 7V3H3v4H0l5 6 5-6H7z"></path>
+                        </svg>
+                    </div>
+                    <div class="interact-box comments-link">
+                        <svg class="comment" stroke="currentColor" fill="currentColor" stroke-width="0"
+                            viewBox="0 0 512 512" height="0.9em" width="0.9em" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M448 0H64C28.7 0 0 28.7 0 64v288c0 35.3 28.7 64 64 64h96v84c0 7.1 5.8 12 12 12 2.4 0 4.9-.7 7.1-2.4L304 416h144c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64zm16 352c0 8.8-7.2 16-16 16H288l-12.8 9.6L208 428v-60H64c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16h384c8.8 0 16 7.2 16 16v288z">
+                            </path>
+                        </svg>
+                        <span>{{post.comments.length}}</span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div *ngIf="!posts.length" class="no-posts">
+        <div class="icon-container"></div>
+        <div class="no-posts-text">
+            <h1>Be the first to post</h1>
+            <h2>Nobody has discussed this topic yet.</h2>
+        </div>
+    </div>
+</div>

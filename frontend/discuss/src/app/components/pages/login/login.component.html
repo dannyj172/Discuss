@@ -1,0 +1,56 @@
+<div class="login-container">
+    <div class="details">
+        <h2>Log in</h2>
+
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
+            <div class="input-container">
+                <label for="username" class="input-label">Username</label>
+                <div class="input-box">
+                    <input type="text" class="input" name="username" formControlName="username">
+                    <svg *ngIf="isSubmitted && fc['username'].errors" class="error-icon" stroke="currentColor"
+                        fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.8em" width="1.8em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path
+                                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <ng-container *ngIf="isSubmitted && fc['username'].errors">
+                    <span *ngIf="fc['username'].errors['required']">Please fill out this field.</span>
+                    <span *ngIf="fc['username'].errors['minlength']">Make sure
+                        your username is valid!</span>
+                </ng-container>
+            </div>
+            <div class="input-container">
+                <label name="username" for="username" class="input-label">Password</label>
+                <div class="input-box">
+                    <input type="password" name="username" class="input" formControlName="password">
+                    <svg *ngIf="isSubmitted && fc['password'].errors" class="error-icon" stroke="currentColor"
+                        fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.8em" width="1.8em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path
+                                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <ng-container *ngIf="isSubmitted && fc['password'].errors">
+                    <span *ngIf="fc['password'].errors['required']">Please fill out this field.</span>
+                    <span *ngIf="fc['password'].errors['minlength']">Make sure
+                        your password is valid!</span>
+                </ng-container>
+            </div>
+            <div class="register">
+                New to Discuss?
+                <a routerLink="/register">Register here</a>
+            </div>
+            <button
+                [ngClass]="{'disabled-button': isSubmitted && (fc['username'].errors || fc['password'].errors), 'disabled-button:hover': isSubmitted && (fc['username'].errors || fc['password'].errors)}">Login</button>
+        </form>
+    </div>
+</div>

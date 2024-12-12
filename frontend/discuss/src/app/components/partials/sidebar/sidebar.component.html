@@ -1,0 +1,66 @@
+<!-- <aside *ngIf="!(router.url.includes('discussions') || router.url.includes('not-found'))" class="sidebar"> -->
+<aside class="sidebar">
+    <div class="links">
+        <div [ngClass]="{'active': router.url=='/'}" routerLink="" class="link-box">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2" baseProfile="tiny"
+                viewBox="0 0 24 24" height="1.8em" width="1.8em" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 3s-6.186 5.34-9.643 8.232c-.203.184-.357.452-.357.768 0 .553.447 1 1 1h2v7c0 .553.447 1 1 1h3c.553 0 1-.448 1-1v-4h4v4c0 .552.447 1 1 1h3c.553 0 1-.447 1-1v-7h2c.553 0 1-.447 1-1 0-.316-.154-.584-.383-.768-3.433-2.892-9.617-8.232-9.617-8.232z">
+                </path>
+            </svg>
+            <p>Home</p>
+        </div>
+        <div [ngClass]="{'active': router.url.includes('discussions')}" routerLink="discussions" class="link-box">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.8em"
+                width="1.8em" xmlns="http://www.w3.org/2000/svg">
+                <g>
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path
+                        d="M16.8 19L14 22.5 11.2 19H6a1 1 0 0 1-1-1V7.103a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1V18a1 1 0 0 1-1 1h-5.2zM2 2h17v2H3v11H1V3a1 1 0 0 1 1-1z">
+                    </path>
+                </g>
+            </svg>
+            <p>Discussions</p>
+        </div>
+        <div class="link-box">
+            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1.8em"
+                width="1.8em" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 100-6 3 3 0 000 6z"
+                    clip-rule="evenodd"></path>
+            </svg>
+            <p>Profile</p>
+        </div>
+    </div>
+    <div class="resources">
+        <div class="link-box dropdown" (click)="openResources()">
+            <h3>Resources</h3>
+            <svg [ngClass]="resourcesOpen ? 'opened' : 'closed'" stroke="currentColor" fill="currentColor"
+                stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M256 217.9L383 345c9.4 9.4 24.6 9.4 33.9 0 9.4-9.4 9.3-24.6 0-34L273 167c-9.1-9.1-23.7-9.3-33.1-.7L95 310.9c-4.7 4.7-7 10.9-7 17s2.3 12.3 7 17c9.4 9.4 24.6 9.4 33.9 0l127.1-127z">
+                </path>
+            </svg>
+        </div>
+        <ng-container *ngIf="resourcesOpen">
+            <a class="link-box" href="">About Discuss</a>
+            <a class="link-box" href="">Help</a>
+            <a class="link-box" href="">User Agreement</a>
+        </ng-container>
+    </div>
+    <div class="recent">
+        <div (click)="openRecent()" class="link-box dropdown">
+            <h3>Recent</h3>
+            <svg [ngClass]="recentOpen ? 'opened' : 'closed'" stroke="currentColor" fill="currentColor" stroke-width="0"
+                viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M256 217.9L383 345c9.4 9.4 24.6 9.4 33.9 0 9.4-9.4 9.3-24.6 0-34L273 167c-9.1-9.1-23.7-9.3-33.1-.7L95 310.9c-4.7 4.7-7 10.9-7 17s2.3 12.3 7 17c9.4 9.4 24.6 9.4 33.9 0l127.1-127z">
+                </path>
+            </svg>
+        </div>
+        <ng-container *ngIf="recentOpen">
+            <a class="link-box" href="">Politics</a>
+            <a class="link-box" href="">Programming</a>
+            <a class="link-box" href="">Fashion</a>
+        </ng-container>
+    </div>
+</aside>

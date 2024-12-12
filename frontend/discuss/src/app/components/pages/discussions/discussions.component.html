@@ -1,0 +1,11 @@
+<div class="discussions-box">
+    <h4>Best of Discuss</h4>
+    <div class="discussions-list">
+        <ng-container *ngFor="let topic of topics; index as i">
+            <div class="topic" routerLink="/topics/{{topic.topicName}}">
+                <p class="topic-name">{{topic.topicName}}</p>
+                <p>{{topic.postsAmount}} posts</p>
+            </div>
+        </ng-container>
+    </div>
+</div>

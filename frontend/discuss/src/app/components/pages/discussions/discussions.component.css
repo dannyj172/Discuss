@@ -1,0 +1,39 @@
+.discussions-box {
+  display: flex;
+  flex-direction: column;
+  width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  color: white;
+  z-index: -1;
+}
+
+h4 {
+  text-align: center;
+}
+
+.discussions-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.topic {
+  display: flex;
+  width: 200px;
+  justify-content: space-evenly;
+  margin: 10px;
+  background-color: #7139b1bd;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.topic:hover {
+  background-color: #7139b1;
+}
+
+.topic-name {
+  font-weight: 500;
+}
