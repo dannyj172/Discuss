@@ -1,28 +1,47 @@
 <div class="create-post-container">
     <h2>Create post</h2>
 
+    <div class="topics-container">
+        <form [formGroup]="createForm">
+            <select formControlName="topic">
+                <option *ngFor="let topic of topics" value="{{topic.topicName}}">
+                    {{topic.topicName}}
+                </option>
+            </select>
+        </form>
+    </div>
+
     <div class="post-type">
-        <button class="type-button selected">Text</button>
+        <button (click)="changePostType('text')" [ngClass]="{'selected': postType === 'text'}"
+            class="type-button">Text</button>
 
-        <button class="type-button">Image</button>
+        <button (click)="changePostType('image')" [ngClass]="{'selected': postType === 'image'}"
+            class="type-button">Image</button>
 
-        <button class="type-button">Text & Image</button>
+        <button (click)="changePostType('text-image')" [ngClass]="{'selected': postType === 'text-image'}"
+            class="type-button">Text & Image</button>
 
     </div>
 
-    <form>
+    <form [formGroup]="createForm" (ngSubmit)="submit()">
 
-        <input type="text" placeholder="Discussion" class="invalid">
-        <span>Please fill out this field.</span>
+        <input [ngClass]="{'invalid': isSubmitted && fc['title'].errors}" formControlName="title" type="text"
+            placeholder="Title">
 
-        <input type="text" placeholder="Title">
-        <!-- <span>Please fill out this field.</span> -->
+        <input *ngIf="(postType === 'image' || postType === 'text-image')"
+            [ngClass]="{'invalid': isSubmitted && fc['imageUrl'].errors}" formControlName="imageUrl" type="text"
+            placeholder="Image Url">
 
-        <input type="text" placeholder="Image Url">
-        <!-- <span>Please fill out this field.</span> -->
+        <textarea *ngIf="(postType === 'text' || postType === 'text-image')"
+            [ngClass]="{'invalid': isSubmitted && fc['description'].errors}" formControlName="description"
+            placeholder="Body"></textarea>
 
-        <textarea name="" id="" placeholder="Body"></textarea>
-        <!-- <span>Please fill out this field.</span> -->
+        <ng-container *ngIf="(isSubmitted && !createForm.valid)">
+            <span>Please fill all necessary fields.</span>
+        </ng-container>
+        <ng-container *ngIf="(postType !== 'text' && isSubmitted && fc['imageUrl'].errors)">
+            <span>Please use a valid image url.</span>
+        </ng-container>
 
         <div class="post-button-container">
             <button class="post">Post</button>

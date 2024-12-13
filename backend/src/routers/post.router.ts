@@ -2,6 +2,7 @@ import { Router } from "express";
 import { sample_posts } from "../data";
 import asyncHandler from "express-async-handler";
 import { PostModel } from "../models/post.model";
+import { HTTP_BAD_REQUEST } from "../constants/http_status";
 
 const router = Router();
 
@@ -57,6 +58,18 @@ router.get(
     });
 
     res.send(posts);
+  })
+);
+
+router.post(
+  "/create-post",
+  asyncHandler(async (req, res) => {
+    if (!req.body) {
+      res.status(HTTP_BAD_REQUEST).send("Invalid post request!");
+    }
+    const post = await PostModel.create(req.body);
+
+    res.send(post);
   })
 );
 

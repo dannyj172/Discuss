@@ -49,8 +49,8 @@
 }
 
 .blurred-image {
-  width: 720px;
-  height: 600px;
+  max-width: 720px;
+  max-height: 600px;
   filter: blur(80px) brightness(60%);
   -webkit-filter: blur(80px) brightness(60%);
   z-index: 0;
@@ -60,8 +60,12 @@
   max-width: 720px;
   height: 600px;
   position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   z-index: 1;
-  left: 130px;
 }
 
 .post-box {
@@ -69,6 +73,7 @@
   border-radius: 10px;
   margin-top: 5px;
 }
+
 .post-box:hover {
   cursor: pointer;
   background-color: #181c1f;
@@ -116,6 +121,7 @@ ul li h2 {
   font-weight: 400;
   font-size: 20px;
   margin-bottom: 10px;
+  width: 750px;
 }
 
 ul li {
