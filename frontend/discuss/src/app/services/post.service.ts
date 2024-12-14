@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {
   POST_BY_ID_URL,
   POST_CREATE_URL,
+  POST_DELETE_URL,
   POST_EDIT_URL,
   POSTS_BY_SEARCH_URL,
   POSTS_BY_TOPIC_URL,
@@ -39,5 +40,9 @@ export class PostService {
 
   editPost(post: any, postId: string): Observable<Post> {
     return this.http.post<Post>(POST_BY_ID_URL + postId + POST_EDIT_URL, post);
+  }
+
+  deletePost(postId: string): Observable<any> {
+    return this.http.delete<any>(POST_BY_ID_URL + postId + POST_DELETE_URL);
   }
 }

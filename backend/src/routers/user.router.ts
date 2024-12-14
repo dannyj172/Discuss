@@ -55,7 +55,7 @@ router.post(
 
     const newUser: User = {
       id: "",
-      username, //maybe i want it as username:username.toLowerCase()
+      username,
       password: encryptedPassword,
     };
 
@@ -64,20 +64,41 @@ router.post(
   })
 );
 
+router.get(
+  "/profile/:username",
+  asyncHandler(async (req, res) => {
+    const username = req.params.username;
+
+    const user = await UserModel.findOne({ username: username }).select({
+      username: 1,
+      createdAt: 1,
+      _id: 0,
+    });
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(HTTP_BAD_REQUEST).send("User does not exist!");
+    }
+  })
+);
+
 const genereteTokenResponse = (user: any) => {
   const token = jwt.sign(
     {
+      id: user.id,
       username: user.username,
     },
-    process.env.JWT_SECRET!,
+    `${process.env.JWT_SECRET!}`,
     {
       expiresIn: "30d",
     }
   );
 
-  user.token = token;
-
-  return user;
+  return {
+    id: user.id,
+    username: user.username,
+    token: token,
+  };
 };
 
 export default router;

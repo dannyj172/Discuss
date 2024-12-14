@@ -76,7 +76,7 @@ button {
 }
 
 .confirm-button {
-  background-color: rgba(255, 0, 0, 0.63);
+  background-color: rgba(207, 15, 15, 0.623);
 }
 
 .cancel-button:hover {
@@ -84,5 +84,5 @@ button {
 }
 
 .confirm-button:hover {
-  background-color: red;
+  background-color: rgb(207, 15, 15);
 }

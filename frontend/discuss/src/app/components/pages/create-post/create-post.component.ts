@@ -5,11 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
-import { Post } from 'src/app/shared/models/Post';
 import { Topic } from 'src/app/shared/models/Topic';
 import { User } from 'src/app/shared/models/User';
 import { imageValidator } from 'src/app/shared/validators/image-validator';
@@ -25,13 +24,15 @@ export class CreatePostComponent {
   postType: string = 'text';
   topics!: Topic[];
   currentUser!: User;
+  setTopic: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private topicService: TopicService,
     private postService: PostService,
-    private router: Router
+    private router: Router,
+    activatedRoute: ActivatedRoute
   ) {
     this.currentUser = userService.currentUser;
     this.createForm = this.formBuilder.group({
@@ -42,9 +43,19 @@ export class CreatePostComponent {
     });
     this.createForm.removeControl('imageUrl');
 
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['setTopic']) {
+        this.setTopic = params['setTopic'];
+      }
+    });
+
     topicService.getAll().subscribe((serverTopics) => {
       this.topics = serverTopics;
-      this.createForm.patchValue({ topic: this.topics[1].topicName });
+      if (this.setTopic) {
+        this.createForm.patchValue({ topic: this.setTopic });
+      } else {
+        this.createForm.patchValue({ topic: this.topics[0].topicName });
+      }
     });
   }
 
@@ -101,9 +112,9 @@ export class CreatePostComponent {
     let post: any = {
       topic: fv.topic,
       title: fv.title,
-      votes: 1,
       owner: this.currentUser.username,
       id: '',
+      user: this.currentUser.id,
     };
 
     if (fv.imageUrl) {
@@ -112,8 +123,8 @@ export class CreatePostComponent {
     if (fv.description) {
       post.description = fv.description;
     }
-
     this.postService.createPost(post).subscribe((post) => {
+      // increase post count for topic
       this.router.navigateByUrl(`/posts/${post.id}`);
     });
   }

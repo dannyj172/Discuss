@@ -5,6 +5,7 @@ aside {
   border-right: 1px solid rgba(218, 217, 217, 0.205);
   height: 100vh;
   background-color: #0e1113;
+  z-index: 9999;
 }
 
 /* BASE LINKS */

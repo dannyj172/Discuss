@@ -4,8 +4,9 @@ export const POST_BY_ID_URL = BASE_URL + '/api/posts/';
 export const POSTS_URL = BASE_URL + '/api/posts';
 export const POSTS_BY_SEARCH_URL = POSTS_URL + '/search/';
 export const POSTS_BY_TOPIC_URL = POSTS_URL + '/topic/';
-export const POST_CREATE_URL = POSTS_URL + '/create-post/';
+export const POST_CREATE_URL = POSTS_URL + '/create';
 export const POST_EDIT_URL = '/edit';
+export const POST_DELETE_URL = '/delete';
 
 export const TOPICS_URL = BASE_URL + '/api/topics';
 export const TOPIC_BY_TOPICNAME_URL = TOPICS_URL + '/';

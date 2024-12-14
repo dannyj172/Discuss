@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
@@ -33,6 +34,7 @@ export class EditPostComponent {
     private userService: UserService,
     private topicService: TopicService,
     private postService: PostService,
+    private toastrService: ToastrService,
     private router: Router
   ) {
     this.currentUser = userService.currentUser;
@@ -134,6 +136,8 @@ export class EditPostComponent {
     let post: any = {
       topic: fv.topic,
       title: fv.title,
+      imageUrl: '',
+      description: '',
     };
 
     if (fv.imageUrl) {
@@ -143,8 +147,16 @@ export class EditPostComponent {
       post.description = fv.description;
     }
 
-    this.postService.editPost(post, this.post.id).subscribe((post) => {
-      this.router.navigateByUrl(`/posts/${post.id}`);
+    this.postService.editPost(post, this.post.id).subscribe({
+      next: (post) => {
+        this.router.navigateByUrl(`/${post.id}`);
+      },
+      error: (errorResponse) => {
+        this.router.navigateByUrl(`/posts/${this.post.id}`);
+        console.log(errorResponse.error);
+
+        this.toastrService.error(errorResponse.error, 'Edit failed');
+      },
     });
   }
 }

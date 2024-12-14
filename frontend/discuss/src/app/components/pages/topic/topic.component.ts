@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PostService } from 'src/app/services/post.service';
 import { TimeFormatService } from 'src/app/services/timeformat.service';
@@ -13,13 +13,14 @@ import { Topic } from 'src/app/shared/models/Topic';
   styleUrls: ['./topic.component.css'],
 })
 export class TopicComponent implements OnInit {
-  topic!: Topic;
+  topic: Topic = { id: '', topicName: '...', banner: '', postsAmount: 0 };
   posts: Post[] = [];
 
   constructor(
     activatedRoute: ActivatedRoute,
     private topicService: TopicService,
     private postService: PostService,
+    private router: Router,
     private timeFormatService: TimeFormatService
   ) {
     let topicObservable: Observable<Topic>;
@@ -41,6 +42,12 @@ export class TopicComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  onCreatePostButtonClick(topic: string) {
+    this.router.navigate(['/create-post'], {
+      queryParams: { setTopic: topic },
+    });
+  }
 
   timeFormat(time: string) {
     return this.timeFormatService.timeFormat(time);

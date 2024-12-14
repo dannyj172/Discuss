@@ -22,6 +22,10 @@ h2 {
   border-bottom: 4px solid #a9c4cc;
 }
 
+.topics-container select:hover {
+  background-color: #343d42;
+}
+
 select option {
   background-color: #a9c4cc;
   color: black;

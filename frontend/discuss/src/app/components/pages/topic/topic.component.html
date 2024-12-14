@@ -1,10 +1,10 @@
 <div class="topic">
     <div class="banner">
-        <img *ngIf="topic" class="banner-image" src={{topic.banner}} alt="">
+        <img class="banner-image" src={{topic.banner}} alt="">
     </div>
     <div class="topic-title">
-        <h2 *ngIf="topic.topicName">{{topic.topicName}}</h2>
-        <div routerLink="/create-post" class="create-button">
+        <h2>{{topic.topicName}}</h2>
+        <div (click)="onCreatePostButtonClick(topic.topicName)" class="create-button">
             <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1.7em" width="1.7em"
                 xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4">
@@ -26,8 +26,8 @@
                     <span>{{timeFormat(post.createdAt)}}</span>
                 </div>
                 <h2>{{post.title}}</h2>
-                <p *ngIf="post.description" class="post-text">{{post.description}}</p>
-                <div *ngIf="post.imageUrl" class="images">
+                <p class="post-text">{{post.description}}</p>
+                <div class="images">
                     <img class="blurred-image" src={{post.imageUrl}} alt="">
                     <img class="main-image" src={{post.imageUrl}} alt="">
                 </div>
