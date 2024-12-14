@@ -1,4 +1,7 @@
 <div class="post-page">
+    <app-confirmation *ngIf="showPopup" [(showPopup)]="showPopup" (confirmPopup)="onPopupConfirm($event)"
+        [title]="confirmationTitle" [text]="confirmationText" [cancel]="confirmationCancelButtonText"
+        [confirm]="confirmationConfirmButtonText"></app-confirmation>
     <div class="post-box">
         <div class="topic-box">
             <div class="topic-left">
@@ -31,7 +34,7 @@
                         clip-rule="evenodd"></path>
                 </svg>
                 <div class="options" *ngIf="showOptions">
-                    <div class="edit-button">
+                    <div routerLink="/posts/{{post.id}}/edit" class="edit-button">
                         <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1.5em"
                             width="1.5em" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -40,7 +43,7 @@
                         </svg>
                         <p>Edit post</p>
                     </div>
-                    <div class="delete-button">
+                    <div (click)="onConfirmationPopup('del'); optionsClick()" class="delete-button">
                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"
                             stroke-linecap="round" stroke-linejoin="round" height="1.5em" width="1.5em"
                             xmlns="http://www.w3.org/2000/svg">

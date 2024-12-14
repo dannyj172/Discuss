@@ -16,11 +16,11 @@ export const TopicSchema = new Schema<Topic>(
   {
     toJSON: {
       virtuals: true,
-    }, //virtuals changed mongoose default '_id' to 'id'
+    },
     toObject: {
       virtuals: true,
     },
-    timestamps: true, //gives 'createdAt' and more
+    timestamps: true,
   }
 );
 

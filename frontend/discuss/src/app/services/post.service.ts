@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   POST_BY_ID_URL,
+  POST_CREATE_URL,
+  POST_EDIT_URL,
   POSTS_BY_SEARCH_URL,
   POSTS_BY_TOPIC_URL,
   POSTS_URL,
@@ -29,5 +31,13 @@ export class PostService {
 
   getPostById(id: string): Observable<Post> {
     return this.http.get<Post>(POST_BY_ID_URL + id);
+  }
+
+  createPost(post: any): Observable<Post> {
+    return this.http.post<Post>(POST_CREATE_URL, post);
+  }
+
+  editPost(post: any, postId: string): Observable<Post> {
+    return this.http.post<Post>(POST_BY_ID_URL + postId + POST_EDIT_URL, post);
   }
 }

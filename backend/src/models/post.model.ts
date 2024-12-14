@@ -20,17 +20,17 @@ export const PostSchema = new Schema<Post>(
     description: { type: String },
     imageUrl: { type: String },
     votes: { type: Number, required: true },
-    comments: { type: [CommentSchema] }, //maybe true?
+    comments: { type: [CommentSchema] },
   },
   {
     toJSON: {
       virtuals: true,
-    }, //virtuals changed mongoose default '_id' to 'id'
+    },
     toObject: {
       virtuals: true,
     },
-    timestamps: true, //gives 'createdAt' and more
+    timestamps: true,
   }
 );
 
-export const PostModel = model<Post>("post", PostSchema); //Used to apply crud operations to database
+export const PostModel = model<Post>("post", PostSchema);

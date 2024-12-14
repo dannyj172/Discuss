@@ -11,10 +11,10 @@ export const CommentSchema = new Schema<Comment>(
     text: { type: String, required: true },
   },
   {
-    timestamps: true, //gives 'createdAt' and more
+    timestamps: true,
     toJSON: {
       virtuals: true,
-    }, //virtuals changed mongoose default '_id' to 'id'
+    },
     toObject: {
       virtuals: true,
     },

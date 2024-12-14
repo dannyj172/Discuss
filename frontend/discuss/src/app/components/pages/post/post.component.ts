@@ -12,7 +12,21 @@ import { Post } from 'src/app/shared/models/Post';
 })
 export class PostComponent {
   showOptions: boolean = false;
-  post!: Post;
+  post: Post = {
+    id: '',
+    owner: '...',
+    topic: '...',
+    createdAt: '...',
+    title: '...',
+    votes: 0,
+    comments: [],
+  };
+
+  showPopup: boolean = false;
+  confirmationTitle!: string;
+  confirmationText!: string;
+  confirmationCancelButtonText!: string;
+  confirmationConfirmButtonText!: string;
 
   constructor(
     activatedRoute: ActivatedRoute,
@@ -25,6 +39,21 @@ export class PostComponent {
           this.post = serverPost;
         });
     });
+  }
+
+  onConfirmationPopup(action: string) {
+    this.showPopup = true;
+    if (action == 'del') {
+      this.confirmationTitle = 'Delete Post?';
+      this.confirmationText =
+        "Once you delete this post, it can't be restored.";
+      this.confirmationCancelButtonText = 'Go Back';
+      this.confirmationConfirmButtonText = 'Yes, Delete';
+    }
+  }
+
+  onPopupConfirm($event: string) {
+    console.log($event);
   }
 
   optionsClick() {

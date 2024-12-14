@@ -65,11 +65,61 @@ router.post(
   "/create-post",
   asyncHandler(async (req, res) => {
     if (!req.body) {
-      res.status(HTTP_BAD_REQUEST).send("Invalid post request!");
+      res.status(HTTP_BAD_REQUEST).send("Invalid create post request!");
     }
     const post = await PostModel.create(req.body);
 
     res.send(post);
+  })
+);
+
+router.post(
+  "/:id/edit",
+  asyncHandler(async (req, res) => {
+    if (!req.body) {
+      res.status(HTTP_BAD_REQUEST).send("Invalid edit post request!");
+    }
+
+    const postId = req.params.id;
+    const post = req.body;
+
+    let newPost;
+
+    if (!post.description) {
+      console.log("happens1");
+      newPost = await PostModel.findOneAndUpdate(
+        { _id: postId },
+        {
+          topic: post.topic,
+          title: post.title,
+          imageUrl: post.imageUrl,
+          $unset: { description: "" },
+        }
+      );
+    } else if (!post.imageUrl) {
+      console.log("happens2");
+      newPost = await PostModel.findOneAndUpdate(
+        { _id: postId },
+        {
+          topic: post.topic,
+          title: post.title,
+          description: post.description,
+          $unset: { imageUrl: "" },
+        }
+      );
+    } else {
+      console.log("happens3");
+      newPost = await PostModel.findOneAndUpdate(
+        { _id: postId },
+        {
+          topic: post.topic,
+          title: post.title,
+          description: post.description,
+          imageUrl: post.imageUrl,
+        }
+      );
+    }
+    res.send(newPost);
   })
 );
 

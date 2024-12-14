@@ -16,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EditPostComponent } from './components/pages/edit-post/edit-post.component';
+import { ConfirmationComponent } from './components/partials/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TopicComponent,
     DiscussionsComponent,
     NotFoundComponent,
+    EditPostComponent,
+    ConfirmationComponent,
   ],
   imports: [
     BrowserModule,

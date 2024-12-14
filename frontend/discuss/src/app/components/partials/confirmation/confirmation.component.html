@@ -1,0 +1,16 @@
+<div class="confirmation-background">
+    <div class="confirmation-box">
+        <div class="title-box">
+            <h1 class="confirmation-title">{{confirm}}</h1>
+            <svg (click)="closePopupClick()" stroke="currentColor" fill="currentColor" stroke-width="0"
+                viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                <path fill="none" stroke="#fff" stroke-width="2" d="M3,3 L21,21 M3,21 L21,3"></path>
+            </svg>
+        </div>
+        <p class="confirmation-text">{{text}}</p>
+        <div class="buttons-container">
+            <button (click)="closePopupClick()" class="cancel-button">{{cancel}}</button>
+            <button (click)="confirmPopupClick()" class="confirm-button">{{confirm}}</button>
+        </div>
+    </div>
+</div>

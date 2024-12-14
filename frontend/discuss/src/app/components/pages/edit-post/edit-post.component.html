@@ -1,0 +1,51 @@
+<p>edit-post works!</p>
+<div class="create-post-container">
+    <h2>Create post</h2>
+
+    <div class="topics-container">
+        <form [formGroup]="editForm">
+            <select formControlName="topic">
+                <option *ngFor="let topic of topics" value="{{topic.topicName}}">
+                    {{topic.topicName}}
+                </option>
+            </select>
+        </form>
+    </div>
+
+    <div class="post-type">
+        <button (click)="changePostType('text')" [ngClass]="{'selected': postType === 'text'}"
+            class="type-button">Text</button>
+
+        <button (click)="changePostType('image')" [ngClass]="{'selected': postType === 'image'}"
+            class="type-button">Image</button>
+
+        <button (click)="changePostType('text-image')" [ngClass]="{'selected': postType === 'text-image'}"
+            class="type-button">Text & Image</button>
+
+    </div>
+
+    <form [formGroup]="editForm" (ngSubmit)="submit()">
+
+        <input [ngClass]="{'invalid': isSubmitted && fc['title'].errors}" formControlName="title" type="text"
+            placeholder="Title">
+
+        <input *ngIf="(postType === 'image' || postType === 'text-image')"
+            [ngClass]="{'invalid': isSubmitted && fc['imageUrl'].errors}" formControlName="imageUrl" type="text"
+            placeholder="Image Url">
+
+        <textarea *ngIf="(postType === 'text' || postType === 'text-image')"
+            [ngClass]="{'invalid': isSubmitted && fc['description'].errors}" formControlName="description"
+            placeholder="Body"></textarea>
+
+        <ng-container *ngIf="(isSubmitted && !editForm.valid)">
+            <span>Please fill all necessary fields.</span>
+        </ng-container>
+        <ng-container *ngIf="(postType !== 'text' && isSubmitted && fc['imageUrl'].errors)">
+            <span>Please use a valid image url.</span>
+        </ng-container>
+
+        <div class="post-button-container">
+            <button class="post">Post</button>
+        </div>
+    </form>
+</div>

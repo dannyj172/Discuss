@@ -8,11 +8,13 @@ import { CreatePostComponent } from './components/pages/create-post/create-post.
 import { TopicComponent } from './components/pages/topic/topic.component';
 import { DiscussionsComponent } from './components/pages/discussions/discussions.component';
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
+import { EditPostComponent } from './components/pages/edit-post/edit-post.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'search/:searchTerm', component: HomeComponent },
   { path: 'posts/:id', component: PostComponent },
+  { path: 'posts/:id/edit', component: EditPostComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'create-post', component: CreatePostComponent },

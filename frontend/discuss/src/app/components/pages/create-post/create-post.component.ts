@@ -6,9 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
+import { Post } from 'src/app/shared/models/Post';
 import { Topic } from 'src/app/shared/models/Topic';
+import { User } from 'src/app/shared/models/User';
 import { imageValidator } from 'src/app/shared/validators/image-validator';
 
 @Component({
@@ -21,13 +24,16 @@ export class CreatePostComponent {
   isSubmitted: boolean = false;
   postType: string = 'text';
   topics!: Topic[];
+  currentUser!: User;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private topicService: TopicService,
+    private postService: PostService,
     private router: Router
   ) {
+    this.currentUser = userService.currentUser;
     this.createForm = this.formBuilder.group({
       topic: ['', Validators.required],
       title: ['', Validators.required],
@@ -92,11 +98,12 @@ export class CreatePostComponent {
 
     const fv = this.createForm.value;
 
-    if (!fv.imageUrl && !fv.description) return;
-
     let post: any = {
       topic: fv.topic,
       title: fv.title,
+      votes: 1,
+      owner: this.currentUser.username,
+      id: '',
     };
 
     if (fv.imageUrl) {
@@ -106,7 +113,8 @@ export class CreatePostComponent {
       post.description = fv.description;
     }
 
-    console.log(post);
-    // service
+    this.postService.createPost(post).subscribe((post) => {
+      this.router.navigateByUrl(`/posts/${post.id}`);
+    });
   }
 }
