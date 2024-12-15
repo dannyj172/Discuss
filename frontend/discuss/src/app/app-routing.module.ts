@@ -25,7 +25,8 @@ const routes: Routes = [
   },
   { path: 'topics/:topicName', component: TopicComponent },
   { path: 'discussions', component: DiscussionsComponent },
-  { path: 'not-found', component: NotFoundComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({

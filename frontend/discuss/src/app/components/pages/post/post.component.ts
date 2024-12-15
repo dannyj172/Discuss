@@ -2,8 +2,9 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from 'src/app/services/loading.service';
 import { PostService } from 'src/app/services/post.service';
-import { TimeFormatService } from 'src/app/services/timeformat.service';
+import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
 import { Post } from 'src/app/shared/models/Post';
 
@@ -13,8 +14,14 @@ import { Post } from 'src/app/shared/models/Post';
   styleUrls: ['./post.component.css'],
 })
 export class PostComponent {
+  isLoading: boolean = false;
+  isFullscreen: boolean = false;
   isPostOwner: boolean = false;
   showOptions: boolean = false;
+  isCommenting: boolean = false;
+
+  // commentForm
+
   post: Post = {
     id: '',
     user: '',
@@ -37,12 +44,17 @@ export class PostComponent {
   constructor(
     activatedRoute: ActivatedRoute,
     private postService: PostService,
+    private topicService: TopicService,
     private userService: UserService,
     private toastrService: ToastrService,
     private router: Router,
     private location: Location,
-    private timeFormatService: TimeFormatService
+    loadingService: LoadingService
   ) {
+    loadingService.isLoading.subscribe((isLoading) => {
+      this.isLoading = isLoading;
+    });
+
     activatedRoute.params.subscribe((params) => {
       if (params['id'])
         postService.getPostById(params['id']).subscribe((serverPost) => {
@@ -52,6 +64,14 @@ export class PostComponent {
           }
         });
     });
+  }
+
+  onImageClick() {
+    this.isFullscreen = true;
+  }
+
+  closeFullscreen() {
+    this.isFullscreen = false;
   }
 
   onConfirmationPopup(action: string) {
@@ -69,9 +89,12 @@ export class PostComponent {
     if ($event === 'delete') {
       this.postService.deletePost(this.post.id).subscribe({
         next: () => {
-          // lower posts count for topic
-          this.router.navigateByUrl('/');
-          this.toastrService.success('Post has been deleted.', 'Success!');
+          this.topicService
+            .changePostAmount(this.post.topic, 'decrease')
+            .subscribe(() => {
+              this.router.navigateByUrl('/');
+              this.toastrService.success('Post has been deleted.', 'Success!');
+            });
         },
         error: (errorResponse) => {
           console.log(errorResponse.error);
@@ -81,15 +104,15 @@ export class PostComponent {
     }
   }
 
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+
   onBackClick() {
     this.location.back();
   }
 
   optionsClick() {
     this.showOptions = !this.showOptions;
-  }
-
-  timeFormat(time: string) {
-    return this.timeFormatService.timeFormat(time);
   }
 }

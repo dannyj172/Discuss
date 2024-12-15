@@ -1,6 +1,6 @@
 <div class="topic">
     <div class="banner">
-        <img class="banner-image" src={{topic.banner}} alt="">
+        <img *ngIf="topic.banner" class="banner-image" src={{topic.banner}} alt="">
     </div>
     <div class="topic-title">
         <h2>{{topic.topicName}}</h2>
@@ -13,6 +13,7 @@
             <p>Create a post</p>
         </div>
     </div>
+    <app-loading *ngIf="isLoading"></app-loading>
     <ul>
         <li routerLink="/posts/{{post.id}}" *ngFor="let post of posts">
             <div class="post-box">
@@ -23,11 +24,11 @@
                         <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd">
                         </path>
                     </svg>
-                    <span>{{timeFormat(post.createdAt)}}</span>
+                    <span>{{post.createdAt |elapsedTime}}</span>
                 </div>
                 <h2>{{post.title}}</h2>
-                <p class="post-text">{{post.description}}</p>
-                <div class="images">
+                <p *ngIf="post.description" class="post-text">{{post.description | slice}}</p>
+                <div *ngIf="post.imageUrl" class="images">
                     <img class="blurred-image" src={{post.imageUrl}} alt="">
                     <img class="main-image" src={{post.imageUrl}} alt="">
                 </div>

@@ -87,7 +87,9 @@ router.get(
   "/topic/:topicName",
   asyncHandler(async (req, res) => {
     const topicRegex = new RegExp(req.params.topicName, "i");
-    const posts = await PostModel.find({ topic: { $regex: topicRegex } });
+    const posts = await PostModel.find({ topic: { $regex: topicRegex } }).sort({
+      createdAt: "descending",
+    });
     res.send(posts);
   })
 );
@@ -171,7 +173,7 @@ router.get(
   })
 );
 
-router.delete(
+router.post(
   "/:id/upvote",
   auth,
   asyncHandler(async (req: any, res) => {
@@ -230,7 +232,7 @@ router.delete(
   })
 );
 
-router.delete(
+router.post(
   "/:id/downvote",
   auth,
   asyncHandler(async (req, res) => {

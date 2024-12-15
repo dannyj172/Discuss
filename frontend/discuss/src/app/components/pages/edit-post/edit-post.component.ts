@@ -149,12 +149,11 @@ export class EditPostComponent {
 
     this.postService.editPost(post, this.post.id).subscribe({
       next: (post) => {
-        this.router.navigateByUrl(`/${post.id}`);
+        this.router.navigateByUrl(`/posts/${post.id}`);
       },
       error: (errorResponse) => {
         this.router.navigateByUrl(`/posts/${this.post.id}`);
         console.log(errorResponse.error);
-
         this.toastrService.error(errorResponse.error, 'Edit failed');
       },
     });

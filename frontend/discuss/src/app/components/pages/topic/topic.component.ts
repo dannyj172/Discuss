@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoadingService } from 'src/app/services/loading.service';
 import { PostService } from 'src/app/services/post.service';
-import { TimeFormatService } from 'src/app/services/timeformat.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { Post } from 'src/app/shared/models/Post';
 import { Topic } from 'src/app/shared/models/Topic';
@@ -15,14 +15,18 @@ import { Topic } from 'src/app/shared/models/Topic';
 export class TopicComponent implements OnInit {
   topic: Topic = { id: '', topicName: '...', banner: '', postsAmount: 0 };
   posts: Post[] = [];
+  isLoading: boolean = false;
 
   constructor(
     activatedRoute: ActivatedRoute,
     private topicService: TopicService,
     private postService: PostService,
-    private router: Router,
-    private timeFormatService: TimeFormatService
+    loadingService: LoadingService,
+    private router: Router
   ) {
+    loadingService.isLoading.subscribe((isLoading) => {
+      this.isLoading = isLoading;
+    });
     let topicObservable: Observable<Topic>;
     let postsObservable: Observable<Post[]>;
     activatedRoute.params.subscribe((params) => {
@@ -47,9 +51,5 @@ export class TopicComponent implements OnInit {
     this.router.navigate(['/create-post'], {
       queryParams: { setTopic: topic },
     });
-  }
-
-  timeFormat(time: string) {
-    return this.timeFormatService.timeFormat(time);
   }
 }

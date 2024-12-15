@@ -124,8 +124,11 @@ export class CreatePostComponent {
       post.description = fv.description;
     }
     this.postService.createPost(post).subscribe((post) => {
-      // increase post count for topic
-      this.router.navigateByUrl(`/posts/${post.id}`);
+      this.topicService
+        .changePostAmount(post.topic, 'increase')
+        .subscribe(() => {
+          this.router.navigateByUrl(`/posts/${post.id}`);
+        });
     });
   }
 }

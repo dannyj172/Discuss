@@ -24,7 +24,7 @@
                     <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd">
                     </path>
                 </svg>
-                <span>{{timeFormat(post.createdAt)}}</span>
+                <span>{{post.createdAt | elapsedTime}}</span>
             </div>
             <div *ngIf="isPostOwner" class="topic-right">
                 <svg (click)="optionsClick()" class="more-options" stroke="currentColor" fill="currentColor"
@@ -58,10 +58,17 @@
         </div>
         <h2>{{post.title}}</h2>
         <p *ngIf="post.description" class="post-text">{{post.description}}</p>
-        <div *ngIf="post.imageUrl" class="images">
-            <img class="blurred-image" src={{post.imageUrl}} alt="">
-            <img class="main-image" src={{post.imageUrl}} alt="">
+        <div (click)="onImageClick()" [ngClass]="{'fullscreen-images':isFullscreen}" *ngIf="post.imageUrl"
+            class="images">
+            <img [ngClass]="{'fullscreen-blurred-image':isFullscreen}" class="blurred-image" src={{post.imageUrl}}
+                alt="">
+            <img [ngClass]="{'fullscreen-main-image':isFullscreen}" class="main-image" src={{post.imageUrl}} alt="">
         </div>
+        <svg (click)="closeFullscreen()" *ngIf="isFullscreen" class="exit-fullscreen" stroke="currentColor"
+            fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.5em" width="1.5em"
+            xmlns="http://www.w3.org/2000/svg">
+            <path fill="none" stroke="#fff" stroke-width="2" d="M3,3 L21,21 M3,21 L21,3"></path>
+        </svg>
         <div class="interact">
             <div class="interact-box">
                 <svg class="upvote" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 10 16"
@@ -74,7 +81,7 @@
                     <path fill-rule="evenodd" d="M7 7V3H3v4H0l5 6 5-6H7z"></path>
                 </svg>
             </div>
-            <div class="interact-box comments-link">
+            <div (click)="scroll(target)" class="interact-box comments-link">
                 <svg class="comment-icon" stroke="currentColor" fill="currentColor" stroke-width="0"
                     viewBox="0 0 512 512" height="0.9em" width="0.9em" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -85,27 +92,30 @@
             </div>
         </div>
     </div>
-    <div class="input-container">
-        <textarea name="" id="" class="comment-field"></textarea>
-        <label for="" class="input-label">Search Discuss</label>
-        <button class="cancel-button">Cancel</button>
-        <button class="comment-button">Comment</button>
-    </div>
-    <div *ngIf="post.comments.length" class="comment-section">
-        <div *ngFor="let comment of post.comments" class="comment">
-            <div class="comment-info">
-                <p>{{comment.author}}</p>
-                <svg class="dot" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
-                    height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd">
-                    </path>
-                </svg>
-                <span>{{timeFormat(comment.createdAt)}}</span>
+    <div #target>
+        <div class="input-container">
+            <textarea name="" id="" class="comment-field"></textarea>
+            <label for="" class="input-label">Search Discuss</label>
+            <button class="cancel-button">Cancel</button>
+            <button class="comment-button">Comment</button>
+        </div>
+        <app-loading *ngIf="isLoading"></app-loading>
+        <div *ngIf="post.comments.length" class="comment-section">
+            <div *ngFor="let comment of post.comments" class="comment">
+                <div class="comment-info">
+                    <p>{{comment.author}}</p>
+                    <svg class="dot" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
+                        height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd">
+                        </path>
+                    </svg>
+                    <span>{{comment.createdAt | elapsedTime}}</span>
+                </div>
+                <p class="comment-text">{{comment.text}}</p>
             </div>
-            <p class="comment-text">{{comment.text}}</p>
         </div>
     </div>
-    <div *ngIf="!post.comments.length" class="no-posts">
+    <div *ngIf="!post.comments.length && !isLoading" class="no-posts">
         <div class="icon-container"></div>
         <div class="no-posts-text">
             <h1>Be the first to comment</h1>
@@ -113,4 +123,5 @@
             <h2>Add your thoughts and get the discussion going.</h2>
         </div>
     </div>
+
 </div>

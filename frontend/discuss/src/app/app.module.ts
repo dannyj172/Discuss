@@ -19,6 +19,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { EditPostComponent } from './components/pages/edit-post/edit-post.component';
 import { ConfirmationComponent } from './components/partials/confirmation/confirmation.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { ElapsedTimePipe } from './shared/pipes/elapsed-time.pipe';
+import { SlicePipe } from './shared/pipes/slice.pipe';
+import { ProfilePageComponent } from './components/pages/profile-page/profile-page.component';
+import { LoadingComponent } from './components/partials/loading/loading.component';
+import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,6 +40,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     NotFoundComponent,
     EditPostComponent,
     ConfirmationComponent,
+    ElapsedTimePipe,
+    SlicePipe,
+    ProfilePageComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,11 +63,11 @@ import { AuthInterceptor } from './auth/auth.interceptor';
       useClass: AuthInterceptor,
       multi: true,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: LoadingInterceptor,
-    //   multi: true,
-    // },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

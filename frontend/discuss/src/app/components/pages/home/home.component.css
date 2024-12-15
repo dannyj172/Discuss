@@ -11,6 +11,11 @@
 
 /* Sort */
 
+.sort-container {
+  position: relative;
+  width: fit-content;
+}
+
 .sort {
   display: flex;
   align-items: center;
@@ -29,13 +34,50 @@
   background-color: #343d42;
 }
 
-.sort p {
+.active-sort-option {
   margin-right: 5px;
   font-weight: 500;
 }
 
 .sort svg {
   transform: rotate(180deg);
+}
+
+.sort-options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40px;
+  right: -12px;
+  background-color: #1d2327;
+  z-index: 999;
+  padding: 0px;
+  margin: 0;
+  border-radius: 5px;
+}
+
+.sort-options h1 {
+  padding: 5px 20px;
+  text-wrap: nowrap;
+  font-size: 14px;
+  color: rgb(212, 212, 212);
+}
+
+.sort-options p {
+  padding: 20px;
+  margin: 0;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.sort-options p:hover {
+  background-color: #2e3b42;
+}
+
+.sort-options p:last-of-type {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 /* Posts */

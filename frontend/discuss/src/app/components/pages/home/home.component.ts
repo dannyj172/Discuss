@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoadingService } from 'src/app/services/loading.service';
 import { PostService } from 'src/app/services/post.service';
-import { TimeFormatService } from 'src/app/services/timeformat.service';
 import { Post } from 'src/app/shared/models/Post';
 
 @Component({
@@ -12,29 +12,58 @@ import { Post } from 'src/app/shared/models/Post';
 })
 export class HomeComponent {
   posts: Post[] = [];
+  isLoading: boolean = false;
+  showSortOptions: boolean = false;
+  currentSortOption: string = 'New';
 
   constructor(
     private postService: PostService,
-    private timeFormatService: TimeFormatService,
-    activatedRoute: ActivatedRoute
+    loadingService: LoadingService,
+    private activatedRoute: ActivatedRoute
   ) {
-    let postsObservable: Observable<Post[]>;
-    activatedRoute.params.subscribe((params) => {
-      if (params['searchTerm']) {
-        postsObservable = this.postService.getAllPostsBySearchTerm(
-          params['searchTerm']
-        );
-      } else {
-        postsObservable = postService.getAll();
-      }
+    loadingService.isLoading.subscribe((isLoading) => {
+      this.isLoading = isLoading;
+    });
 
-      postsObservable.subscribe((serverPosts) => {
-        this.posts = serverPosts; //posts.reverse when sorting from newest to oldest
-      });
+    this.getPosts();
+  }
+
+  getPosts() {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['searchTerm']) {
+        this.postService
+          .getAllPostsBySearchTerm(params['searchTerm'])
+          .subscribe((serverPosts) => {
+            if (this.currentSortOption === 'Old') {
+              this.posts = serverPosts.slice().reverse();
+            } else {
+              this.posts = serverPosts;
+            }
+          });
+      } else {
+        this.postService.getAll().subscribe((serverPosts) => {
+          if (this.currentSortOption === 'Old') {
+            this.posts = serverPosts.slice().reverse();
+          } else {
+            this.posts = serverPosts;
+          }
+        });
+      }
     });
   }
 
-  timeFormat(time: string) {
-    return this.timeFormatService.timeFormat(time);
+  onSortClick() {
+    this.showSortOptions = !this.showSortOptions;
+  }
+
+  onSortChange(sortBy: string) {
+    if (sortBy === 'New' && this.currentSortOption !== 'New') {
+      this.currentSortOption = 'New';
+      this.getPosts();
+    } else if (sortBy === 'Old' && this.currentSortOption !== 'Old') {
+      this.currentSortOption = 'Old';
+      this.getPosts();
+    }
+    this.showSortOptions = !this.showSortOptions;
   }
 }

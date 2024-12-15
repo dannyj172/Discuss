@@ -1,0 +1,40 @@
+.loader {
+  background-image: linear-gradient(
+    to right bottom,
+    #7139b1,
+    #844fc0,
+    #9664cf,
+    #a879df,
+    #bb8fee
+  );
+  width: 75px;
+  height: 75px;
+  margin: 40px auto;
+  border-radius: 50%;
+  animation: spinner 2s infinite linear;
+  box-shadow: 0px 0px 40px 3px #a879df;
+  filter: blur(1.5px);
+}
+
+@keyframes spinner {
+  0% {
+    border-radius: 50%;
+    border-top-left-radius: 20%;
+  }
+  25% {
+    border-radius: 50%;
+    border-top-right-radius: 20%;
+  }
+  50% {
+    border-radius: 50%;
+    border-bottom-right-radius: 20%;
+  }
+  75% {
+    border-radius: 50%;
+    border-bottom-left-radius: 20%;
+  }
+  100% {
+    border-radius: 50%;
+    border-top-left-radius: 20%;
+  }
+}
