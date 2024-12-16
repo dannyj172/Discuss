@@ -11,8 +11,8 @@
         </div>
         <div *ngIf="showSortOptions" class="sort-options">
             <h1>Sort By</h1>
-            <p (click)="onSortChange('New')">New</p>
-            <p (click)="onSortChange('Old')">Old</p>
+            <p [ngClass]="{'active-sort': currentSortOption == 'New'}" (click)="onSortChange('New')">New</p>
+            <p [ngClass]="{'active-sort': currentSortOption == 'Old'}" (click)="onSortChange('Old')">Old</p>
         </div>
 
     </div>

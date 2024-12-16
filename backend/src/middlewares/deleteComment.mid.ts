@@ -6,9 +6,8 @@ export default (req: any, res: any, next: any) => {
   if (!commentId) {
     return res.status(HTTP_BAD_REQUEST).send("Invalid comment id!");
   }
-
   const userId = req.body.userId;
-  const commentOwnerId = req.body.comment.ownerId;
+  const commentOwnerId = req.body.ownerId;
 
   if (commentOwnerId !== userId) {
     return res.status(HTTP_UNAUTHORIZED).send("This is not your comment!");

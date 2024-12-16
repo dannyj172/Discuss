@@ -22,10 +22,12 @@ export class ConfirmationComponent {
   }
 
   confirmPopupClick() {
-    if ((this.title = 'Delete Post?')) {
-      this.confirmPopup.emit('delete');
-    } else if ((this.title = 'Discard comment?')) {
-      this.confirmPopup.emit('discard');
+    if (this.title == 'Delete Post?') {
+      this.confirmPopup.emit('delete post');
+    } else if (this.title == 'Discard comment?') {
+      this.confirmPopup.emit('discard comment');
+    } else if (this.title == 'Delete Comment?') {
+      this.confirmPopup.emit('delete comment');
     }
     this.closePopupClick();
   }

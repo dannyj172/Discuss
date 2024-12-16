@@ -71,7 +71,7 @@
   font-weight: 400;
 }
 
-.sort-options p:hover {
+.active-sort {
   background-color: #2e3b42;
 }
 

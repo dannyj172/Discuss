@@ -27,11 +27,12 @@ export class EditPostComponent {
   topics!: Topic[];
   currentUser!: User;
   post!: Post;
+  currentTopic!: string;
 
   constructor(
     activatedRoute: ActivatedRoute,
+    userService: UserService,
     private formBuilder: FormBuilder,
-    private userService: UserService,
     private topicService: TopicService,
     private postService: PostService,
     private toastrService: ToastrService,
@@ -49,6 +50,7 @@ export class EditPostComponent {
       if (params['id'])
         postService.getPostById(params['id']).subscribe((serverPost) => {
           this.post = serverPost;
+          this.currentTopic = this.post.topic;
           if (this.post.imageUrl && this.post.description) {
             this.postType = 'text-image';
             this.editForm.patchValue({
@@ -149,7 +151,19 @@ export class EditPostComponent {
 
     this.postService.editPost(post, this.post.id).subscribe({
       next: (post) => {
-        this.router.navigateByUrl(`/posts/${post.id}`);
+        if (this.editForm.value.topic !== this.currentTopic) {
+          this.topicService
+            .changePostAmount(this.currentTopic, 'decrease')
+            .subscribe(() => {
+              this.topicService
+                .changePostAmount(this.editForm.value.topic, 'increase')
+                .subscribe(() => {
+                  this.router.navigateByUrl(`/posts/${post.id}`);
+                });
+            });
+        } else {
+          this.router.navigateByUrl(`/posts/${post.id}`);
+        }
       },
       error: (errorResponse) => {
         this.router.navigateByUrl(`/posts/${this.post.id}`);

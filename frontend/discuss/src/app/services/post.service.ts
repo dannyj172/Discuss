@@ -53,7 +53,7 @@ export class PostService {
     return this.http.delete<any>(POST_BY_ID_URL + postId + POST_DELETE_URL);
   }
 
-  comment(commentInfo: Comment, postId: string): Observable<Post> {
+  comment(postId: string, commentInfo: Comment): Observable<Post> {
     return this.http.post<Post>(
       POST_BY_ID_URL + postId + POST_COMMENT_URL,
       commentInfo

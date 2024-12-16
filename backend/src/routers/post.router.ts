@@ -51,8 +51,12 @@ router.post(
       res.status(HTTP_BAD_REQUEST).send("Empty input fields!");
       return;
     }
+    if (!id) {
+      res.status(HTTP_BAD_REQUEST).send("Invalid post!");
+      return;
+    }
     const comment = new CommentModel({ ...commentInfo, user: req.user.id });
-    const post: any = await PostModel.findOneAndUpdate(
+    const post = await PostModel.findOneAndUpdate(
       { _id: id },
       {
         $push: { comments: comment },
