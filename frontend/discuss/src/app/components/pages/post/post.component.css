@@ -247,18 +247,34 @@ h2 {
   padding: 0 5px;
 }
 
+.upvote,
+.downvote {
+  fill: none;
+  stroke: rgb(255, 255, 255);
+  stroke-width: 1px;
+  stroke-linejoin: bevel;
+}
+
 .upvote:hover {
-  color: rgb(255, 81, 0);
+  stroke: rgb(255, 8, 0);
   cursor: pointer;
   border-radius: 50%;
   background-color: #363f44;
 }
 
 .downvote:hover {
-  color: rgb(48, 97, 202);
+  stroke: rgb(78, 67, 230);
   cursor: pointer;
-  background-color: #363f44;
   border-radius: 50%;
+  background-color: #363f44;
+}
+
+.upvote-active {
+  background-color: rgb(255, 8, 0);
+}
+
+.downvote-active {
+  background-color: rgb(78, 67, 230);
 }
 
 .comments-link:hover {

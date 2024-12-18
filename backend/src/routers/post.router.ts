@@ -182,9 +182,10 @@ router.post(
   auth,
   asyncHandler(async (req: any, res) => {
     const postId = req.params.id;
-    const userInfo = req.body;
+    const { userId } = req.body;
     let increment = 0;
-    const voter = new VoterModel({ voterId: userInfo.userId });
+
+    const voter = new VoterModel({ voterId: userId });
 
     const post = await PostModel.findById(postId);
     if (!post) {
@@ -192,10 +193,10 @@ router.post(
       return;
     }
     const hasUpvoted = post.upvoters?.some((voter) => {
-      return voter.voterId === userInfo.userId;
+      return voter.voterId === userId;
     });
     const hasDownvoted = post.downvoters?.some((voter) => {
-      return voter.voterId === userInfo.userId;
+      return voter.voterId === userId;
     });
 
     if (hasUpvoted) {
@@ -241,9 +242,9 @@ router.post(
   auth,
   asyncHandler(async (req, res) => {
     const postId = req.params.id;
-    const userInfo = req.body;
+    const { userId } = req.body;
     let increment = 0;
-    const voter = new VoterModel({ voterId: userInfo.userId });
+    const voter = new VoterModel({ voterId: userId });
 
     const post = await PostModel.findById(postId);
     if (!post) {
@@ -251,10 +252,10 @@ router.post(
       return;
     }
     const hasUpvoted = post.upvoters?.some((voter) => {
-      return voter.voterId === userInfo.userId;
+      return voter.voterId === userId;
     });
     const hasDownvoted = post.downvoters?.some((voter) => {
-      return voter.voterId === userInfo.userId;
+      return voter.voterId === userId;
     });
 
     if (hasDownvoted) {

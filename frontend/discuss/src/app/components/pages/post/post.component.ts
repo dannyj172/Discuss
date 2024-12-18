@@ -164,6 +164,7 @@ export class PostComponent {
         },
       });
     } else if ($event === 'discard comment') {
+      this.isSubmitted = false;
       this.cancel();
     } else if ($event === 'delete comment') {
       this.postService.deleteComment(this.post.id, this.commentId).subscribe({
@@ -193,5 +194,29 @@ export class PostComponent {
 
   optionsClick() {
     this.showOptions = !this.showOptions;
+  }
+
+  upvoteClick(postId: string) {
+    if (!this.currentUser) {
+      this.toastrService.error('Unauthorized', 'Please log in to vote!');
+      return;
+    }
+    this.postService.upvote(postId, this.currentUser.id).subscribe((post) => {
+      this.postService.getPostById(post.id).subscribe((serverPost) => {
+        this.post = serverPost;
+      });
+    });
+  }
+
+  downvoteClick(postId: string) {
+    if (!this.currentUser) {
+      this.toastrService.error('Unauthorized', 'Please log in to vote!');
+      return;
+    }
+    this.postService.downvote(postId, this.currentUser.id).subscribe((post) => {
+      this.postService.getPostById(post.id).subscribe((serverPost) => {
+        this.post = serverPost;
+      });
+    });
   }
 }

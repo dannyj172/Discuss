@@ -24,6 +24,8 @@ import { SlicePipe } from './shared/pipes/slice.pipe';
 import { ProfilePageComponent } from './components/pages/profile-page/profile-page.component';
 import { LoadingComponent } from './components/partials/loading/loading.component';
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
+import { hasUpvotedPipe } from './shared/pipes/has-upvoted.pipe';
+import { hasDownvotedPipe } from './shared/pipes/has-downvoted.pipe';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
     ConfirmationComponent,
     ElapsedTimePipe,
     SlicePipe,
+    hasUpvotedPipe,
+    hasDownvotedPipe,
     ProfilePageComponent,
     LoadingComponent,
   ],

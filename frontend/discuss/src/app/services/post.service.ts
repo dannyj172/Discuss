@@ -71,17 +71,15 @@ export class PostService {
     return this.http.get<Post[]>(POSTS_BY_USER_URL + username);
   }
 
-  upvote(postId: string, userInfo: User): Observable<Post> {
-    return this.http.post<Post>(
-      POST_BY_ID_URL + postId + POST_UPVOTE_URL,
-      userInfo
-    );
+  upvote(postId: string, userId: string): Observable<Post> {
+    return this.http.post<Post>(POST_BY_ID_URL + postId + POST_UPVOTE_URL, {
+      userId,
+    });
   }
 
-  downvote(postId: string, userInfo: User): Observable<Post> {
-    return this.http.post<Post>(
-      POST_BY_ID_URL + postId + POST_DOWNVOTE_URL,
-      userInfo
-    );
+  downvote(postId: string, userId: string): Observable<Post> {
+    return this.http.post<Post>(POST_BY_ID_URL + postId + POST_DOWNVOTE_URL, {
+      userId,
+    });
   }
 }

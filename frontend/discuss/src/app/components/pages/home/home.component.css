@@ -206,18 +206,50 @@ ul li .comments-link {
   padding: 0 5px;
 }
 
+.vote-button {
+  fill: none;
+  stroke: rgb(255, 255, 255);
+  stroke-width: 1px;
+  stroke-linejoin: bevel;
+  z-index: 9998;
+}
+
 .upvote:hover {
-  color: rgb(255, 81, 0);
+  stroke: rgb(255, 8, 0);
   cursor: pointer;
   border-radius: 50%;
   background-color: #363f44;
 }
 
 .downvote:hover {
-  color: rgb(48, 97, 202);
+  stroke: rgb(78, 67, 230);
   cursor: pointer;
-  background-color: #363f44;
   border-radius: 50%;
+  background-color: #363f44;
+}
+
+.upvoted {
+  fill: white;
+}
+
+.downvoted {
+  fill: white;
+}
+
+ul li .upvote-active {
+  background-color: rgb(255, 8, 0);
+}
+
+ul li .downvote-active {
+  background-color: rgb(78, 67, 230);
+}
+
+ul li .upvote-active .downvote:hover,
+ul li .upvote-active .upvote:hover,
+ul li .downvote-active .upvote:hover,
+ul li .downvote-active .downvote:hover {
+  stroke: rgb(255, 255, 255);
+  background-color: transparent;
 }
 
 ul li .comments-link:hover {
