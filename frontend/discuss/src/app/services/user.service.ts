@@ -10,6 +10,8 @@ import {
 } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
+import { IProfileDetails } from '../shared/interfaces/IProfileDetails';
+import { RecentService } from './recent.service';
 
 const USER_KEY = 'User';
 
@@ -20,7 +22,11 @@ export class UserService {
   private userSubject = new BehaviorSubject(this.getUserFromLocalStorage());
   public userObservable: Observable<User>;
 
-  constructor(private http: HttpClient, private toastrService: ToastrService) {
+  constructor(
+    private http: HttpClient,
+    private toastrService: ToastrService,
+    private recentService: RecentService
+  ) {
     this.userObservable = this.userSubject.asObservable();
   }
 
@@ -28,7 +34,7 @@ export class UserService {
     return this.userSubject.value;
   }
 
-  getUserDetails(username: string): Observable<User> {
+  getUserDetails(username: string): Observable<IProfileDetails> {
     return this.http.get<User>(USER_DETAILS_URL + username);
   }
 
@@ -71,6 +77,7 @@ export class UserService {
   logout() {
     this.userSubject.next(new User());
     localStorage.removeItem(USER_KEY);
+    this.recentService.removeRecentFromLocalStorage();
     window.location.reload();
   }
 

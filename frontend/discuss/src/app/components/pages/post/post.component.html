@@ -11,7 +11,7 @@
                         d="M12.707 17.293L8.414 13 18 13 18 11 8.414 11 12.707 6.707 11.293 5.293 4.586 12 11.293 18.707z">
                     </path>
                 </svg>
-                <p class="post-owner">{{post.owner}}</p>
+                <p routerLink="/profile/{{post.owner}}" class="post-owner">{{post.owner}}</p>
                 <svg class="dot" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16"
                     height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd">
@@ -58,11 +58,12 @@
         </div>
         <h2>{{post.title}}</h2>
         <p *ngIf="post.description" class="post-text">{{post.description}}</p>
-        <div (click)="onImageClick()" [ngClass]="{'fullscreen-images':isFullscreen}" *ngIf="post.imageUrl"
-            class="images">
-            <img [ngClass]="{'fullscreen-blurred-image':isFullscreen}" class="blurred-image" src={{post.imageUrl}}
-                alt="">
-            <img [ngClass]="{'fullscreen-main-image':isFullscreen}" class="main-image" src={{post.imageUrl}} alt="">
+        <div (click)="onImageClick()" [ngClass]="{'fullscreen-images':isFullscreen, 'images': !isFullscreen}"
+            *ngIf="post.imageUrl" class="">
+            <img [ngClass]="{'fullscreen-blurred-image':isFullscreen, 'blurred-image': !isFullscreen}" class=""
+                src={{post.imageUrl}} alt="">
+            <img [ngClass]="{'fullscreen-main-image':isFullscreen, 'main-image': !isFullscreen}" class=""
+                src={{post.imageUrl}} alt="">
         </div>
         <svg (click)="closeFullscreen()" *ngIf="isFullscreen" class="exit-fullscreen" stroke="currentColor"
             fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.5em" width="1.5em"
@@ -70,19 +71,19 @@
             <path fill="none" stroke="#fff" stroke-width="2" d="M3,3 L21,21 M3,21 L21,3"></path>
         </svg>
         <div class="interact">
-            <div class="interact-box upvote-active">
-                <svg class="upvote" stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2"
-                    baseProfile="tiny" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M12 3.172l-6.414 6.414c-.781.781-.781 2.047 0 2.828s2.047.781 2.828 0l1.586-1.586v7.242c0 1.104.895 2 2 2 1.104 0 2-.896 2-2v-7.242l1.586 1.586c.391.391.902.586 1.414.586s1.023-.195 1.414-.586c.781-.781.781-2.047 0-2.828l-6.414-6.414z">
-                    </path>
+            <div [ngClass]="{'upvote-active': post | hasUpvoted: currentUser.id, 'downvote-active': post | hasDownvoted: currentUser.id}"
+                class="interact-box">
+                <svg (click)="upvoteClick(post.id); $event.stopPropagation()"
+                    [ngClass]="{'upvoted': post | hasUpvoted: currentUser.id}" class="vote-button upvote"
+                    stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 10 16" height="1em"
+                    width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M5 3L0 9h3v4h4V9h3L5 3z"></path>
                 </svg>
                 <span>{{post.votes}}</span>
-                <svg class="downvote" stroke="currentColor" fill="currentColor" stroke-width="0" version="1.2"
-                    baseProfile="tiny" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M18.414 10.656c-.781-.781-2.047-.781-2.828 0l-1.586 1.586v-7.242c0-1.105-.896-2-2-2-1.105 0-2 .895-2 2v7.242l-1.586-1.586c-.781-.781-2.047-.781-2.828 0s-.781 2.047 0 2.828l6.414 6.414 6.414-6.414c.781-.781.781-2.046 0-2.828z">
-                    </path>
+                <svg (click)="downvoteClick(post.id)" [ngClass]="{'downvoted': post | hasDownvoted: currentUser.id}"
+                    class="vote-button downvote" stroke="currentColor" fill="currentColor" stroke-width="0"
+                    viewBox="0 0 10 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M7 7V3H3v4H0l5 6 5-6H7z"></path>
                 </svg>
             </div>
             <div (click)="scroll(target)" class="interact-box comments-link">
@@ -114,8 +115,7 @@
             <span *ngIf="isSubmitted && fc['text'].errors" class="comment-error">The field is required and cannot be
                 empty</span>
         </div>
-        <app-loading *ngIf="isLoading"></app-loading>
-        <div *ngIf="post.comments.length && !isLoading" class="comment-section">
+        <div *ngIf="post.comments.length" class="comment-section">
             <div *ngFor="let comment of post.comments" class="comment">
                 <div class="comment-info">
                     <p>{{comment.author}}</p>
@@ -141,6 +141,7 @@
             </div>
         </div>
     </div>
+    <app-loading *ngIf="isLoading"></app-loading>
     <div *ngIf="!post.comments.length && !isLoading" class="no-posts">
         <div class="icon-container"></div>
         <div class="no-posts-text">
@@ -149,5 +150,4 @@
             <h2>Add your thoughts and get the discussion going.</h2>
         </div>
     </div>
-
 </div>

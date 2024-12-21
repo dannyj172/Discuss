@@ -10,10 +10,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4">
                 </path>
             </svg>
-            <p>Create a post</p>
+            <p>Create post</p>
         </div>
     </div>
-    <app-loading *ngIf="isLoading"></app-loading>
     <ul>
         <li routerLink="/posts/{{post.id}}" *ngFor="let post of posts">
             <div class="post-box">
@@ -33,14 +32,19 @@
                     <img class="main-image" src={{post.imageUrl}} alt="">
                 </div>
                 <div class="interact">
-                    <div class="interact-box">
-                        <svg class="upvote" stroke="currentColor" fill="currentColor" stroke-width="0"
-                            viewBox="0 0 10 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <div [ngClass]="{'upvote-active': post | hasUpvoted: currentUser.id, 'downvote-active': post | hasDownvoted: currentUser.id}"
+                        class="interact-box">
+                        <svg (click)="upvoteClick(post.id); $event.stopPropagation()"
+                            [ngClass]="{'upvoted': post | hasUpvoted: currentUser.id}" class="vote-button upvote"
+                            stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 10 16" height="1em"
+                            width="1em" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M5 3L0 9h3v4h4V9h3L5 3z"></path>
                         </svg>
                         <span>{{post.votes}}</span>
-                        <svg class="downvote" stroke="currentColor" fill="currentColor" stroke-width="0"
-                            viewBox="0 0 10 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                        <svg (click)="downvoteClick(post.id); $event.stopPropagation()"
+                            [ngClass]="{'downvoted': post | hasDownvoted: currentUser.id}" class="vote-button downvote"
+                            stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 10 16" height="1em"
+                            width="1em" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M7 7V3H3v4H0l5 6 5-6H7z"></path>
                         </svg>
                     </div>
@@ -57,11 +61,12 @@
             </div>
         </li>
     </ul>
-    <div *ngIf="!posts.length" class="no-posts">
+    <div *ngIf="!posts.length && !isLoading" class="no-posts">
         <div class="icon-container"></div>
         <div class="no-posts-text">
             <h1>Be the first to post</h1>
             <h2>Nobody has discussed this topic yet.</h2>
         </div>
     </div>
+    <app-loading *ngIf="isLoading"></app-loading>
 </div>

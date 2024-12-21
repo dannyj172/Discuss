@@ -197,26 +197,28 @@ export class PostComponent {
   }
 
   upvoteClick(postId: string) {
-    if (!this.currentUser) {
-      this.toastrService.error('Unauthorized', 'Please log in to vote!');
-      return;
-    }
-    this.postService.upvote(postId, this.currentUser.id).subscribe((post) => {
-      this.postService.getPostById(post.id).subscribe((serverPost) => {
-        this.post = serverPost;
-      });
+    this.postService.upvote(postId, this.currentUser.id).subscribe({
+      next: () => {
+        this.postService.getPostById(this.post.id).subscribe((serverPost) => {
+          this.post = serverPost;
+        });
+      },
+      error: (errorResponse) => {
+        this.toastrService.error(errorResponse.error, 'Unable to vote!');
+      },
     });
   }
 
   downvoteClick(postId: string) {
-    if (!this.currentUser) {
-      this.toastrService.error('Unauthorized', 'Please log in to vote!');
-      return;
-    }
-    this.postService.downvote(postId, this.currentUser.id).subscribe((post) => {
-      this.postService.getPostById(post.id).subscribe((serverPost) => {
-        this.post = serverPost;
-      });
+    this.postService.downvote(postId, this.currentUser.id).subscribe({
+      next: () => {
+        this.postService.getPostById(this.post.id).subscribe((serverPost) => {
+          this.post = serverPost;
+        });
+      },
+      error: (errorResponse) => {
+        this.toastrService.error(errorResponse.error, 'Unable to vote!');
+      },
     });
   }
 }

@@ -172,8 +172,10 @@ router.get(
   "/all/:username",
   asyncHandler(async (req, res) => {
     const username: string = req.params.username;
-    const post = await PostModel.find({ owner: username });
-    res.send(post);
+    const posts = await PostModel.find({ owner: username }).sort({
+      createdAt: "descending",
+    });
+    res.send(posts);
   })
 );
 

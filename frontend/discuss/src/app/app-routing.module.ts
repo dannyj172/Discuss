@@ -10,6 +10,7 @@ import { DiscussionsComponent } from './components/pages/discussions/discussions
 import { NotFoundComponent } from './components/pages/not-found/not-found.component';
 import { EditPostComponent } from './components/pages/edit-post/edit-post.component';
 import { AuthGuard } from './auth/guards/auth.guard';
+import { ProfilePageComponent } from './components/pages/profile-page/profile-page.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   },
   { path: 'topics/:topicName', component: TopicComponent },
   { path: 'discussions', component: DiscussionsComponent },
+  { path: 'profile/:username', component: ProfilePageComponent },
   { path: '404', component: NotFoundComponent },
   { path: '**', redirectTo: '404' },
 ];

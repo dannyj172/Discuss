@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { RecentService } from 'src/app/services/recent.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/User';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,8 +12,19 @@ import { Router } from '@angular/router';
 export class SidebarComponent {
   resourcesOpen = false;
   recentOpen = false;
+  recent!: string[];
+  currentUser!: User;
 
-  constructor(public router: Router) {}
+  constructor(
+    public router: Router,
+    recentService: RecentService,
+    userService: UserService
+  ) {
+    this.currentUser = userService.currentUser;
+    recentService.recentObservable.subscribe((newRecent) => {
+      this.recent = newRecent;
+    });
+  }
 
   openResources(): void {
     this.resourcesOpen = !this.resourcesOpen;
