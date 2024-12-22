@@ -17,7 +17,7 @@
         <li routerLink="/posts/{{post.id}}" *ngFor="let post of posts">
             <div class="post-box">
                 <div class="topic-box">
-                    <p>{{post.owner}}</p>
+                    <p routerLink="/profile/{{post.owner}}">{{post.owner}}</p>
                     <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em"
                         width="1em" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M8 9.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" clip-rule="evenodd">

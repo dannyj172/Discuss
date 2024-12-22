@@ -3,7 +3,7 @@
 header {
   position: fixed;
   top: 0;
-  width: 100%;
+  min-width: 100vw;
   z-index: 9999;
 }
 
@@ -15,8 +15,9 @@ header {
   display: flex;
   background-color: #0e1113;
   /* padding: 10px; */
+  width: 100vw;
   border-bottom: 1px solid rgba(218, 217, 217, 0.205);
-  /* justify-content: space-between; */
+  justify-content: space-between;
 }
 
 .logo {
@@ -65,10 +66,6 @@ header {
   font-family: "Jersey 25", sans-serif;
   font-size: 34px;
   margin-left: 7px;
-}
-
-nav {
-  margin-left: auto;
 }
 
 nav ul {
@@ -129,6 +126,7 @@ nav a {
   box-sizing: content-box;
   padding: 10px;
   margin: 0px;
+  margin-right: 6px;
   border-radius: 50%;
 }
 
@@ -140,9 +138,10 @@ nav a {
   display: flex;
   flex-direction: column;
   position: absolute;
-  right: 2px;
+  right: 0px;
   top: 75px;
   color: white;
+  column-gap: 0px;
 }
 
 .options-button {
@@ -150,7 +149,6 @@ nav a {
   align-items: center;
   width: 250px;
   padding: 10px 0px 10px 20px;
-
   background-color: #1b2024;
   cursor: pointer;
 }
@@ -171,7 +169,8 @@ nav a {
   border-bottom-left-radius: 5px;
 }
 
-.options-button:hover {
+.options-button:hover,
+.options-button:active {
   background-color: #252c31;
 }
 
@@ -205,7 +204,7 @@ nav a {
 
 .input-container {
   height: fit-content;
-  width: 600px;
+  max-width: 600px;
   display: flex;
   position: relative;
   align-self: center;
@@ -213,7 +212,7 @@ nav a {
   background-color: #343d42a6;
   padding: 8px 10px;
   border-radius: 20px/50%;
-  margin-left: 24%;
+  margin: auto;
 }
 
 .input-container svg {
@@ -252,4 +251,57 @@ nav a {
   color: #9ab0b6;
   pointer-events: none;
   font-size: 14px;
+}
+
+.mobile-button {
+  display: none;
+}
+
+@media screen and (max-width: 1300px) {
+  .mobile-button {
+    display: flex;
+  }
+
+  .create-button {
+    display: none;
+  }
+
+  .input-container {
+    max-width: 50%;
+    margin: 0;
+  }
+
+  .input {
+    max-width: 100%;
+  }
+
+  nav ul {
+    padding-left: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .logo-text {
+    display: none;
+  }
+  .input-label {
+    text-wrap: nowrap;
+    left: 15px;
+  }
+  .search-icon {
+    opacity: 0;
+  }
+  .input-container {
+    overflow: hidden;
+  }
+  .options-button {
+    max-width: 100vw;
+  }
+  nav ul li {
+    margin-left: 0px;
+  }
+
+  .more-options {
+    margin-right: 0px;
+  }
 }

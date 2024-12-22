@@ -84,3 +84,9 @@ aside {
   margin-left: 15px;
   font-weight: 300;
 }
+
+@media screen and (max-width: 1300px) {
+  .sidebar {
+    display: none;
+  }
+}

@@ -69,13 +69,14 @@
   position: relative;
   border: 1px solid rgba(177, 177, 177, 0.192);
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 15px;
   min-height: 400px;
   max-height: 600px;
+  width: 100%;
 }
 
 .blurred-image {
-  width: 720px;
+  width: 100%;
   min-height: 400px;
   max-height: 600px;
   filter: blur(80px) brightness(60%);
@@ -84,6 +85,7 @@
 }
 
 .main-image {
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
   position: absolute;
@@ -268,4 +270,82 @@ ul li .comments-link:hover {
   font-size: 14px;
   font-weight: 300;
   color: #a7b2b9;
+}
+
+@media screen and (max-width: 1300px) {
+  .post-box {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .topic {
+    width: 100vw;
+  }
+
+  .banner {
+    width: 100vw;
+    border-radius: 0px;
+  }
+
+  .banner-image {
+    width: 100vw;
+    border-radius: 0px;
+  }
+
+  .topic-title {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  ul {
+    width: 100vw;
+    padding-left: 0px;
+  }
+
+  li {
+    width: 100vw;
+  }
+
+  .post-box {
+    width: 100vw;
+    padding: 0px;
+  }
+
+  .images {
+    width: 100vw;
+    border-radius: 0px;
+  }
+
+  .blurred-image {
+    max-width: 100vw;
+  }
+
+  .main-image {
+    max-width: 100vw;
+  }
+
+  .topic-box {
+    max-width: 100vw;
+    margin-left: 15px;
+  }
+
+  .post-box h2 {
+    max-width: 100vw;
+    padding-left: 10px;
+    padding-right: 5px;
+  }
+
+  .post-box p {
+    max-width: 100vw;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .interact {
+    max-width: 100vw;
+    padding-left: 10px;
+    margin-bottom: 10px;
+  }
 }
