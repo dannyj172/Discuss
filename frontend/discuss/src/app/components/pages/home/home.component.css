@@ -296,6 +296,7 @@ ul li .comments-link:hover {
   }
 
   .main-image {
+    height: auto;
     max-width: 100vw;
   }
 

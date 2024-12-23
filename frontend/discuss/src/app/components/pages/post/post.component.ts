@@ -71,11 +71,18 @@ export class PostComponent {
 
     activatedRoute.params.subscribe((params) => {
       if (params['id'])
-        postService.getPostById(params['id']).subscribe((serverPost) => {
-          this.post = serverPost;
-          if (this.currentUser.id === this.post.user) {
-            this.isPostOwner = true;
-          }
+        postService.getPostById(params['id']).subscribe({
+          next: (serverPost) => {
+            this.post = serverPost;
+            if (this.currentUser.id === this.post.user) {
+              this.isPostOwner = true;
+            }
+          },
+          error: (errorResponse) => {
+            console.log(errorResponse);
+            router.navigateByUrl('/');
+            this.toastrService.error(errorResponse.error, 'Invalid post!');
+          },
         });
     });
   }

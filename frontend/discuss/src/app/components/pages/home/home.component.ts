@@ -47,6 +47,9 @@ export class HomeComponent {
             } else {
               this.posts = serverPosts;
             }
+            if (this.posts.length <= 0) {
+              this.toastrService.error('Error', 'Could not retreive posts');
+            }
           });
       } else {
         this.postService.getAll().subscribe((serverPosts) => {
@@ -55,7 +58,6 @@ export class HomeComponent {
           } else {
             this.posts = serverPosts;
           }
-          console.log(this.posts);
         });
       }
     });

@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
+import { Post } from 'src/app/shared/models/Post';
 import { Topic } from 'src/app/shared/models/Topic';
 import { User } from 'src/app/shared/models/User';
 import { imageValidator } from 'src/app/shared/validators/image-validator';
@@ -109,12 +110,17 @@ export class CreatePostComponent {
 
     const fv = this.createForm.value;
 
-    let post: any = {
+    let post: Post = {
       topic: fv.topic,
       title: fv.title,
       owner: this.currentUser.username,
       id: '',
       user: this.currentUser.id,
+      createdAt: '',
+      votes: 0,
+      comments: [],
+      upvoters: [],
+      downvoters: [],
     };
 
     if (fv.imageUrl) {
@@ -124,11 +130,13 @@ export class CreatePostComponent {
       post.description = fv.description;
     }
     this.postService.createPost(post).subscribe((post) => {
-      this.topicService
-        .changePostAmount(post.topic, 'increase')
-        .subscribe(() => {
-          this.router.navigateByUrl(`/posts/${post.id}`);
-        });
+      this.postService.upvote(post.id, this.currentUser.id).subscribe(() => {
+        this.topicService
+          .changePostAmount(post.topic, 'increase')
+          .subscribe(() => {
+            this.router.navigateByUrl(`/posts/${post.id}`);
+          });
+      });
     });
   }
 }

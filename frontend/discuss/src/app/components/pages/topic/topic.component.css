@@ -299,6 +299,10 @@ ul li .comments-link:hover {
     margin-right: 20px;
   }
 
+  .create-button {
+    margin-left: 10px;
+  }
+
   ul {
     width: 100vw;
     padding-left: 0px;
@@ -323,6 +327,7 @@ ul li .comments-link:hover {
   }
 
   .main-image {
+    height: auto;
     max-width: 100vw;
   }
 
@@ -347,5 +352,18 @@ ul li .comments-link:hover {
     max-width: 100vw;
     padding-left: 10px;
     margin-bottom: 10px;
+  }
+
+  .no-posts {
+    margin: auto;
+  }
+
+  .icon-container {
+    min-width: 50px;
+  }
+
+  .no-posts-text {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }
