@@ -64,5 +64,5 @@
             </div>
         </li>
     </ul>
-    <app-loading *ngIf="isLoading"></app-loading>
+    <app-loading *ngIf="isLoading && !this.posts.length"></app-loading>
 </div>

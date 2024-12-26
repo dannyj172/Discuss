@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
 import { TopicService } from 'src/app/services/topic.service';
 import { Topic } from 'src/app/shared/models/Topic';
 
@@ -8,13 +8,18 @@ import { Topic } from 'src/app/shared/models/Topic';
   templateUrl: './discussions.component.html',
   styleUrls: ['./discussions.component.css'],
 })
-export class DiscussionsComponent implements OnInit {
+export class DiscussionsComponent {
   topics!: Topic[];
-  constructor(private topicService: TopicService) {
-    topicService.getAll().subscribe((serverTopics) => {
-      this.topics = serverTopics;
-    });
+  constructor(topicService: TopicService) {
+    topicService
+      .getAll()
+      .pipe(map((topics) => topics.sort(this.sortByPostsByAmount)))
+      .subscribe((serverTopics) => {
+        this.topics = serverTopics;
+      });
   }
 
-  ngOnInit(): void {}
+  sortByPostsByAmount(a: Topic, b: Topic) {
+    return a.postsAmount < b.postsAmount ? 1 : -1;
+  }
 }

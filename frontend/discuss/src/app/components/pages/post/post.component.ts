@@ -50,14 +50,14 @@ export class PostComponent {
 
   constructor(
     activatedRoute: ActivatedRoute,
+    loadingService: LoadingService,
+    userService: UserService,
     private postService: PostService,
     private topicService: TopicService,
-    private userService: UserService,
     private toastrService: ToastrService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private location: Location,
-    loadingService: LoadingService
+    private location: Location
   ) {
     loadingService.isLoading.subscribe((isLoading) => {
       this.isLoading = isLoading;

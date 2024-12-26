@@ -282,6 +282,7 @@ ul li .comments-link:hover {
 @media screen and (max-width: 850px) {
   .topic {
     width: 100vw;
+    margin-top: 75px;
   }
 
   .banner {

@@ -94,7 +94,8 @@
                             </svg>
                             <p>Discussions</p>
                         </div>
-                        <div (click)="optionsClick()" routerLink="/create-post" class="options-button mobile-button">
+                        <div *ngIf="isAuth" (click)="optionsClick()" routerLink="/create-post"
+                            class="options-button mobile-button">
                             <svg stroke="currentColor" fill="none" stroke-width="0" viewBox="0 0 24 24" height="1.7em"
                                 width="1.7em" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -115,7 +116,21 @@
                             </svg>
                             <p>Logout</p>
                         </div>
-                        <div (click)="optionsClick()" routerLink="/register" *ngIf="!isAuth" class="options-button">
+                        <div (click)="optionsClick()" routerLink="/login" *ngIf="!isAuth"
+                            class="options-button mobile-button">
+                            <svg class="register-icon" stroke="currentColor" fill="currentColor" stroke-width="0"
+                                viewBox="0 0 24 24" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
+                                <g>
+                                    <path fill="none" d="M0 0h24v24H0z"></path>
+                                    <path
+                                        d="M5 11h8v2H5v3l-5-4 5-4v3zm-1 7h2.708a8 8 0 1 0 0-12H4A9.985 9.985 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.985 9.985 0 0 1-8-4z">
+                                    </path>
+                                </g>
+                            </svg>
+                            <p>Login / Register</p>
+                        </div>
+                        <div (click)="optionsClick()" routerLink="/register" *ngIf="!isAuth"
+                            class="options-button register-button">
                             <svg class="register-icon" stroke="currentColor" fill="currentColor" stroke-width="0"
                                 viewBox="0 0 24 24" height="1.5em" width="1.5em" xmlns="http://www.w3.org/2000/svg">
                                 <g>

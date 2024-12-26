@@ -1,28 +1,30 @@
 <div class="create-post-container">
     <h2>Create post</h2>
 
-    <div class="topics-container">
-        <form [formGroup]="createForm">
-            <select formControlName="topic">
-                <option *ngFor="let topic of topics" value="{{topic.topicName}}">
-                    {{topic.topicName}}
-                </option>
-            </select>
-        </form>
+
+    <div class="create-settings">
+        <div class="topics-container">
+            <form [formGroup]="createForm">
+                <select formControlName="topic">
+                    <option *ngFor="let topic of topics" value="{{topic.topicName}}">
+                        {{topic.topicName}}
+                    </option>
+                </select>
+            </form>
+        </div>
+
+        <div class="post-type">
+            <button (click)="changePostType('text')" [ngClass]="{'selected': postType === 'text'}"
+                class="type-button">Text</button>
+
+            <button (click)="changePostType('image')" [ngClass]="{'selected': postType === 'image'}"
+                class="type-button">Image</button>
+
+            <button (click)="changePostType('text-image')" [ngClass]="{'selected': postType === 'text-image'}"
+                class="type-button">Text & Image</button>
+
+        </div>
     </div>
-
-    <div class="post-type">
-        <button (click)="changePostType('text')" [ngClass]="{'selected': postType === 'text'}"
-            class="type-button">Text</button>
-
-        <button (click)="changePostType('image')" [ngClass]="{'selected': postType === 'image'}"
-            class="type-button">Image</button>
-
-        <button (click)="changePostType('text-image')" [ngClass]="{'selected': postType === 'text-image'}"
-            class="type-button">Text & Image</button>
-
-    </div>
-
     <form [formGroup]="createForm" (ngSubmit)="submit()">
 
         <input [ngClass]="{'invalid': isSubmitted && fc['title'].errors}" formControlName="title" type="text"

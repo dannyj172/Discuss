@@ -258,8 +258,16 @@ nav a {
 }
 
 @media screen and (max-width: 1300px) {
+  .login-button {
+    display: none;
+  }
+
   .mobile-button {
     display: flex;
+  }
+
+  .register-button {
+    display: none;
   }
 
   .create-button {
@@ -284,6 +292,7 @@ nav a {
   .logo-text {
     display: none;
   }
+
   .input-label {
     text-wrap: nowrap;
     left: 15px;

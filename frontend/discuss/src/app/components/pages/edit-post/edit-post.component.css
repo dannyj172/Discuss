@@ -1,4 +1,4 @@
-.create-post-container {
+.edit-post-container {
   width: 600px;
   margin: 100px auto auto 600px;
   display: flex;
@@ -121,4 +121,41 @@ span {
 
 .invalid {
   border: 2px solid red !important;
+}
+
+@media screen and (max-width: 1300px) {
+  .edit-post-container {
+    max-width: 90vw;
+    margin: 100px auto;
+  }
+}
+
+@media screen and (max-width: 250px) {
+  .edit-post-container {
+    max-width: 90vw;
+    margin: 100px auto;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .topics-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .topics-container select {
+    width: 50vw;
+  }
+
+  .post-type {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .type-button {
+    width: 50vw;
+    padding: 12px;
+  }
 }

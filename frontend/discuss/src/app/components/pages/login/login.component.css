@@ -108,3 +108,41 @@ a {
 a:hover {
   color: #7face0;
 }
+
+@media screen and (max-width: 1300px) {
+  .login-container {
+    max-width: 100vw;
+    width: 700px;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .input,
+  .input-label,
+  .input-box,
+  .details {
+    max-width: 90vw;
+  }
+
+  .details {
+    margin: auto;
+  }
+
+  .details {
+    align-items: center;
+  }
+
+  .details h2 {
+    text-wrap: nowrap;
+  }
+
+  button {
+    max-width: 90vw;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .login-container {
+    border-radius: 0px;
+  }
+}

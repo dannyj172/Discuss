@@ -9,7 +9,6 @@ import { TopicService } from 'src/app/services/topic.service';
 import { UserService } from 'src/app/services/user.service';
 import { IProfileDetails } from 'src/app/shared/interfaces/IProfileDetails';
 import { Post } from 'src/app/shared/models/Post';
-import { Topic } from 'src/app/shared/models/Topic';
 import { User } from 'src/app/shared/models/User';
 
 @Component({

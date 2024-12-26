@@ -40,7 +40,7 @@ select option {
   border: none;
   padding: 15px 20px;
   margin: 10px 2px;
-  border-radius: 3px;
+  border-radius: 5px;
   cursor: pointer;
   color: white;
   font-weight: bold;
@@ -121,4 +121,41 @@ span {
 
 .invalid {
   border: 2px solid red !important;
+}
+
+@media screen and (max-width: 1300px) {
+  .create-post-container {
+    max-width: 90vw;
+    margin: 100px auto;
+  }
+}
+
+@media screen and (max-width: 250px) {
+  .create-post-container {
+    max-width: 90vw;
+    margin: 100px auto;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  .topics-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .topics-container select {
+    width: 50vw;
+  }
+
+  .post-type {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .type-button {
+    width: 50vw;
+    padding: 12px;
+  }
 }
