@@ -97,6 +97,13 @@ export class PostComponent {
   }
 
   submit() {
+    if (!this.currentUser.token) {
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: this.router.url },
+      });
+      this.toastrService.error('Please log in to comment.', 'Unauthorized!');
+      return;
+    }
     this.isSubmitted = true;
     if (this.commentForm.invalid) return;
 
