@@ -42,14 +42,19 @@ export class ProfilePageComponent {
         this.postsObservable = this.postService.getAllPostsByUser(
           params['username']
         );
-        this.userService
-          .getUserDetails(params['username'])
-          .subscribe((user) => {
+        this.userService.getUserDetails(params['username']).subscribe({
+          next: (user) => {
             this.profileDetails = user;
             this.profileDetails.createdAt = moment(
               this.profileDetails.createdAt
             ).format('DD/MM/YYYY');
-          });
+          },
+          error: (errorResponse) => {
+            this.router.navigateByUrl('/');
+            console.log(errorResponse.error);
+            toastrService.error(errorResponse.error, 'Invalid username!');
+          },
+        });
       }
       this.postsObservable.subscribe((serverPosts) => {
         this.posts = serverPosts;

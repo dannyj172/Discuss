@@ -92,8 +92,7 @@
     <div *ngIf="!posts.length && !isLoading" class="no-posts">
         <div class="icon-container"></div>
         <div class="no-posts-text">
-            <h1>Be the first to post</h1>
-            <h2>Nobody has discussed this topic yet.</h2>
+            <h1>{{profileDetails.username}} hasn't posted yet</h1>
         </div>
     </div>
 </div>

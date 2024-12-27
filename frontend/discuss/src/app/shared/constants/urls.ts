@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:5000';
+import { environment } from 'src/environments/environment';
+
+const BASE_URL = environment.production ? '' : 'http://localhost:5000';
 
 export const POST_BY_ID_URL = BASE_URL + '/api/posts/';
 export const POSTS_URL = BASE_URL + '/api/posts';

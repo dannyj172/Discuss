@@ -329,7 +329,11 @@ ul li .comments-link:hover {
 
 .no-posts {
   display: flex;
-  max-width: 330px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(218, 217, 217, 0.205);
 }
 
 .icon-container {
@@ -337,7 +341,7 @@ ul li .comments-link:hover {
   width: 55px;
   height: 55px;
   margin: auto;
-  margin-left: 30px;
+  margin-bottom: 10px;
   border-radius: 50%;
   border-bottom-right-radius: 20%;
 }
@@ -421,10 +425,6 @@ ul li .comments-link:hover {
     max-width: 100vw;
     padding-left: 10px;
     margin-bottom: 10px;
-  }
-
-  .no-posts {
-    margin: auto;
   }
 
   .icon-container {

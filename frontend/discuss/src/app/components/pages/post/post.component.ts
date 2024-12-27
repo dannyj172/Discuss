@@ -74,7 +74,7 @@ export class PostComponent {
         postService.getPostById(params['id']).subscribe({
           next: (serverPost) => {
             this.post = serverPost;
-            if (this.currentUser.id === this.post.user) {
+            if (this.currentUser.id === this.post.user && this.currentUser.id) {
               this.isPostOwner = true;
             }
           },

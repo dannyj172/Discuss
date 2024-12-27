@@ -20,6 +20,7 @@ app.use(
 app.use("/api/posts", postRouter);
 app.use("/api/topics", topicRouter);
 app.use("/api/users", userRouter);
+
 app.use(express.static("public"));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));

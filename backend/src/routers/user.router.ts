@@ -77,7 +77,9 @@ router.get(
     if (user) {
       res.send(user);
     } else {
-      res.status(HTTP_BAD_REQUEST).send("User does not exist!");
+      res
+        .status(HTTP_BAD_REQUEST)
+        .send("A user with that username does not exist!");
     }
   })
 );

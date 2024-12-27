@@ -168,7 +168,7 @@ export class EditPostComponent {
       error: (errorResponse) => {
         this.router.navigateByUrl(`/posts/${this.post.id}`);
         console.log(errorResponse.error);
-        this.toastrService.error(errorResponse.error, 'Edit failed');
+        this.toastrService.error(errorResponse.error, 'Unauthorized Edit');
       },
     });
   }
