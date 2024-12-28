@@ -18,6 +18,7 @@ import { User } from 'src/app/shared/models/User';
 })
 export class PostComponent {
   commentForm!: FormGroup;
+  commentText?: string;
   isSubmitted: boolean = false;
   isLoading: boolean = false;
   isFullscreen: boolean = false;
@@ -69,6 +70,15 @@ export class PostComponent {
       text: ['', [Validators.required, Validators.maxLength(10000)]],
     });
 
+    this.commentText =
+      activatedRoute.snapshot.queryParams['commentText'] || undefined;
+
+    if (this.commentText) {
+      console.log(this.commentText);
+      this.isCommenting = true;
+      this.commentForm.patchValue({ text: this.commentText });
+    }
+
     activatedRoute.params.subscribe((params) => {
       if (params['id'])
         postService.getPostById(params['id']).subscribe({
@@ -97,17 +107,18 @@ export class PostComponent {
   }
 
   submit() {
-    if (!this.currentUser.token) {
-      this.router.navigate(['/login'], {
-        queryParams: { returnUrl: this.router.url },
-      });
-      this.toastrService.error('Please log in to comment.', 'Unauthorized!');
-      return;
-    }
     this.isSubmitted = true;
     if (this.commentForm.invalid) return;
 
     const fv = this.commentForm.value;
+
+    if (!this.currentUser.token) {
+      this.router.navigate(['/login'], {
+        queryParams: { returnUrl: this.router.url, commentText: fv.text },
+      });
+      this.toastrService.error('Please log in to comment.', 'Unauthorized!');
+      return;
+    }
 
     let comment: Comment = {
       text: fv.text,

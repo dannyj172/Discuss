@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isSubmitted = false;
   returnUrl = '';
+  commentText?: string;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,9 @@ export class LoginComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    this.commentText =
+      this.activatedRoute.snapshot.queryParams['commentText'] || undefined;
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
   }
@@ -43,7 +47,14 @@ export class LoginComponent implements OnInit {
         password: this.fc['password'].value,
       })
       .subscribe(() => {
-        this.router.navigateByUrl(this.returnUrl);
+        if (this.commentText) {
+          console.log('happens');
+          this.router.navigate([this.returnUrl], {
+            queryParams: { commentText: this.commentText },
+          });
+        } else {
+          this.router.navigateByUrl(this.returnUrl);
+        }
       });
   }
 }
