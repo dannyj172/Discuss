@@ -13,14 +13,16 @@ export class SidebarComponent {
   resourcesOpen = false;
   recentOpen = false;
   recent!: string[];
-  currentUser!: User;
+  user!: User;
 
   constructor(
     public router: Router,
     recentService: RecentService,
     userService: UserService
   ) {
-    this.currentUser = userService.currentUser;
+    userService.userObservable.subscribe((newUser) => {
+      this.user = newUser;
+    });
     recentService.recentObservable.subscribe((newRecent) => {
       this.recent = newRecent;
     });
