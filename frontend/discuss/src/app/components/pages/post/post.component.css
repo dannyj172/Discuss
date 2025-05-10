@@ -269,7 +269,7 @@ h2 {
   stroke: rgb(255, 255, 255);
   stroke-width: 1px;
   stroke-linejoin: bevel;
-  z-index: 9998;
+  z-index: 999;
 }
 
 .upvote:hover {
@@ -330,23 +330,31 @@ h2 {
   border: 1px solid rgba(218, 217, 217, 0.205);
   outline: none;
   border-radius: 30px;
-  padding: 10px 25px;
+  padding: 20px 25px 0px 25px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 16px;
+
   background: none;
   caret-color: white;
   color: white;
   resize: vertical;
   min-height: 30px;
+  scrollbar-width: none;
 }
 
-.comment-field-active {
+.comment-field:hover {
+  border: 1px solid rgba(218, 217, 217, 0.699);
+  background: rgba(255, 255, 255, 0.068);
+}
+
+.comment-field.comment-field-active {
   padding-top: 20px;
   height: 100px;
   border: 1px solid rgba(218, 217, 217, 0.699);
+  background: none;
 }
 
-.comment-field-invalid {
+.comment-field.comment-field-active.comment-field-invalid {
   border: 2px solid red;
 }
 
@@ -369,17 +377,17 @@ h2 {
   position: absolute;
   top: 22px;
   left: 25px;
-  color: #9ab0b6;
+  color: #9ab0b6d4;
   pointer-events: none;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .cancel-button,
 .comment-button {
   position: absolute;
-  bottom: 7px;
-  right: 15px;
-  padding: 10px;
+  bottom: 9px;
+  right: 12px;
+  padding: 10px 12px;
   border-radius: 20px;
   border: none;
   color: white;
@@ -496,6 +504,7 @@ h2 {
   .post-page {
     width: 100vw;
     padding: 0px;
+    overflow-x: hidden;
   }
 
   .post-box {

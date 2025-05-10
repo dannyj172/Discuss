@@ -103,10 +103,10 @@
         <div class="comment-input-container">
             <div class="input-container">
                 <form [formGroup]="commentForm">
-                    <textarea (click)="isCommenting = true"
+                    <textarea (click)="setActiveCommenting()"
                         [ngClass]="{'comment-field-active': isCommenting, 'comment-field-invalid': isSubmitted && fc['text'].errors}"
                         formControlName="text" class="comment-field"></textarea>
-                    <label *ngIf="!isCommenting" for="" class="input-label">Search Discuss</label>
+                    <label *ngIf="!isCommenting" for="" class="input-label">Join the discussion</label>
                     <button *ngIf="isCommenting" (click)="onConfirmationPopup('cancel comment')"
                         class="cancel-button">Cancel</button>
                     <button *ngIf="isCommenting" (click)="submit()"

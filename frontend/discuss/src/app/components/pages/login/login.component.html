@@ -47,7 +47,7 @@
             </div>
             <div class="register">
                 New to Discuss?
-                <a routerLink="/register">Register here</a>
+                <a routerLink="/register" [queryParams]="{returnUrl, commentText}">Register here</a>
             </div>
             <button
                 [ngClass]="{'disabled-button': isSubmitted && (fc['username'].errors || fc['password'].errors), 'disabled-button:hover': isSubmitted && (fc['username'].errors || fc['password'].errors)}">Login</button>

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -101,9 +101,28 @@ export class PostComponent {
     return this.commentForm.controls;
   }
 
+  setActiveCommenting() {
+    if (this.isCommenting) return;
+    this.isCommenting = true;
+    const textarea = document.querySelector(
+      '.comment-field'
+    ) as HTMLTextAreaElement;
+    if (textarea) {
+      textarea.style.height = '100px'; // Clear any inline height styles
+    }
+  }
+
   cancel() {
     this.commentForm.patchValue({ text: '' });
     this.isCommenting = false;
+    this.isSubmitted = false;
+
+    const textarea = document.querySelector(
+      '.comment-field'
+    ) as HTMLTextAreaElement;
+    if (textarea) {
+      textarea.style.height = 'auto'; // Clear any inline height styles
+    }
   }
 
   submit() {
@@ -150,6 +169,10 @@ export class PostComponent {
   }
 
   onConfirmationPopup(action: string) {
+    if (!this.commentForm.value.text) {
+      this.cancel();
+      return;
+    }
     if (action == 'delete post') {
       this.confirmationTitle = 'Delete Post?';
       this.confirmationText =

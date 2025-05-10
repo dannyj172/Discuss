@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   isSubmitted: boolean = false;
 
   returnUrl = '';
+  commentText?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +35,8 @@ export class RegisterComponent implements OnInit {
     );
 
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'];
+    this.commentText =
+      this.activatedRoute.snapshot.queryParams['commentText'] || undefined;
   }
 
   get fc() {
@@ -52,7 +55,13 @@ export class RegisterComponent implements OnInit {
     };
 
     this.userService.register(user).subscribe((_) => {
-      this.router.navigateByUrl(this.returnUrl);
+      if (this.commentText) {
+        this.router.navigate([this.returnUrl], {
+          queryParams: { commentText: this.commentText },
+        });
+      } else {
+        this.router.navigateByUrl(this.returnUrl);
+      }
     });
   }
 }

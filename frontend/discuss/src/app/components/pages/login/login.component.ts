@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(() => {
         if (this.commentText) {
-          console.log('happens');
           this.router.navigate([this.returnUrl], {
             queryParams: { commentText: this.commentText },
           });
