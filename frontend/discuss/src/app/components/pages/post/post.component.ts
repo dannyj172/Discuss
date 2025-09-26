@@ -169,7 +169,7 @@ export class PostComponent {
   }
 
   onConfirmationPopup(action: string) {
-    if (!this.commentForm.value.text) {
+    if (!this.commentForm.value.text && action == 'cancel comment') {
       this.cancel();
       return;
     }
