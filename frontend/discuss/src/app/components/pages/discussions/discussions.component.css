@@ -8,8 +8,9 @@
   color: white;
 }
 
-h4 {
+h1 {
   text-align: center;
+  font-size: 16px;
 }
 
 .discussions-list {
@@ -17,6 +18,7 @@ h4 {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  font-family: "Jersey 25", sans-serif;
 }
 
 .topic {
@@ -24,13 +26,14 @@ h4 {
   width: 200px;
   justify-content: space-evenly;
   margin: 10px;
-  background-color: #7139b1bd;
+  background-color: #7139b112;
+  border-bottom: 3px solid #7139b1bd;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .topic:hover {
-  background-color: #7139b1;
+  background-color: #7139b12b;
 }
 
 .topic-name {
