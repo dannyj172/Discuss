@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Sitemap for the Discuss frontend.
+  IMPORTANT: Replace `YOUR_HOST` with your production origin, e.g. https://discuss.example.com
+  This file contains static routes only. For dynamic post URLs (e.g. /post/:id) generate and append them server-side
+  (backend can expose an endpoint that returns URLs in sitemap format or a script can write the file at build time).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Main listing / discussions -->
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/discussions</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Topic browse -->
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/topics/Gaming</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Post browse -->
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/posts/68d993b4ef2b1c809f3926bf</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Create / Edit pages (edit typically requires id; include only base route here) -->
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/create-post</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/posts/68d993b4ef2b1c809f3926bf/edit</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Auth -->
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/login</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/register</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Profile and misc pages -->
+  <url>
+    <loc>https://discuss-u0ac.onrender.com/profile</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Example dynamic entry (replace or generate actual post IDs):
+  <url>
+    <loc>https://YOUR_HOST/post/123</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  -->
+</urlset>
