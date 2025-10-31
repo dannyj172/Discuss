@@ -28,8 +28,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/robots.txt",
-              "src/sitemap.xml"
+              "src/assets/robots.txt",
+              "src/assets/sitemap.xml"
             ],
             "styles": ["src/styles.css", "node_modules/ngx-toastr/toastr.css"],
             "scripts": []
