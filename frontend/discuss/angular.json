@@ -28,8 +28,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/robots.txt",
-              "src/assets/sitemap.xml"
+              "src/robots.txt",
+              "src/assets/robots.txt"
             ],
             "styles": ["src/styles.css", "node_modules/ngx-toastr/toastr.css"],
             "scripts": []
@@ -90,7 +90,12 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/robots.txt",
+              "src/assets/robots.txt"
+            ],
             "styles": ["src/styles.css"],
             "scripts": []
           }
